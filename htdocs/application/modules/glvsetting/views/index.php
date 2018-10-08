@@ -17,9 +17,15 @@
                     </header>
                     <div role="content">
                         <!-- widget content -->
-                        <div class="widget-body">                           
+                        <div class="widget-body">  
+                            <div class="row form-group" >
+                                <label class="col-md-2 control-label" style="padding-top: 5px;font-weight: bold;" for="txtDeptId">Configuration Name</label>
+                                 <div class="col-md-3 " style="padding-top: 5px;font-weight: bold;color:gray;padding-left: 25px;" for="txtDeptId">GLV Max File Upload Size</div>                              
+                                       
+                                                              
+                            </div>                         
                            <div class="row form-group" >
-                                <label class="col-md-1 control-label" style="padding-top: 5px;font-weight: bold;" for="txtDeptId">Upload size:</label>
+                                <label class="col-md-2 control-label" style="padding-top: 5px;font-weight: bold;" for="txtDeptId">Upload size:</label>
                                 <div class="col-md-3">
                                    <div class="col-md-10">
                                        <input id="txtUploadSize" class="form-control" placeholder="Upload Size" type="number" name="uploadSize" min="1" max="100" step="1" value="<?php echo $upload_setting['ValueSize'];?>">

@@ -84,7 +84,7 @@
         <div role="content" style="display: block;">
             <div class="widget-body">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="hr0">
+                    <div class="tab-pane active" id="hr0">                        
                         <p style="margin-bottom:0;">&nbsp;</p>
                         <div class="bggrad" style="border-bottom: none;"><strong>1. Review and verify the following selected high risk transactions, large dollar value transactions, transactions approved outside the reconciling Dept ID, unusual items, and selected sample transactions.</strong></div>
                         <div class="bd-darkgray glvdashboard" style="min-height: 265px;">
@@ -175,6 +175,7 @@
                         <input type="radio" id="rdoshowdollar" name="rdotransactionshowcountdollar" value="Dollars"/><label for='rdoshowdollar'>Show Dollars</label><br>
                         <input type="radio" id="rdoshowcount" name="rdotransactionshowcountdollar" value="Count"/><label for='rdoshowcount'>Show Count</label>
                     </div>
+                    <a class="pull-right btn btn-primary btn-xs" id="exportTransaction" ><i class="fa fa-file-excel-o"></i> Export Data</a>
                     <table id="dt_transaction" class="table table-striped table-bordered table-hover dataTable no-footer" width="2500px">
                         <thead>
                             <tr>
@@ -290,7 +291,7 @@
                             </table>
                         </div>
                         <div class="mag-b-50">
-                            <div class="row">
+                            <div class="row  mb-5">
                                 <div class="col-md-9">
                                      <p>
                                     <b>Payroll Expense Detail and FTE Report</b> - Highlighted amounts in current month column indicate payroll amount or distribution changes from previous month
@@ -324,9 +325,12 @@
                                     
                                                               
                                 </div>
-
+                               
                             </div>
-                           
+                            <div class="mt-5 mag-b-40">
+                                   <a class="pull-right btn btn-primary btn-xs" id="exportPayroll" ><i class="fa fa-file-excel-o"></i> Export All Data</a>
+                                     <a class="pull-right btn btn-primary btn-xs mr-5" id="exportPayrollChanged" ><i class="fa fa-file-excel-o"></i> Export Chg Data</a>
+                               </div>
                            
                             <table id="dt_payroll_expense_detail" class="table table-striped table-bordered table-hover dataTable no-footer" width="2500px">
                                 <thead>
@@ -368,6 +372,7 @@
                         <div>
                             <button type="button" disabled style="width:100px;margin-bottom:10px;" id="monthlyTrendDropBtn">Save</button>
                         </div>
+                        
                         <div >
                             <iframe id="monthlyTrendUrl" src="" style="width:100%;height:900px; "></iframe>
                         </div>
@@ -588,6 +593,7 @@
                         </div>
                     </div>
                 </div>
+                <a class="pull-right btn btn-primary btn-xs mag-r-12 mb-5" id="exportGLVItemDetails" ><i class="fa fa-file-excel-o"></i> Export Data</a>
                 <div class="col-lg-12">
                     <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-0" data-widget-editbutton="false" role="widget" style="margin-bottom: 0;">
                     <!-- widget options:

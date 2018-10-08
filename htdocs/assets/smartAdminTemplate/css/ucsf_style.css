@@ -145,8 +145,15 @@ header .jarviswidget-ctrls a {
 .mag-b-20 {
     margin-bottom: 20px;
 }
+.mag-b-40 {
+    margin-bottom: 40px;
+}
 .mag-b-50 {
     margin-bottom: 50px;
+}
+
+.mag-r-12 {
+    margin-right: 12px;
 }
 @media (min-width: 768px) {
     .custom-field .form-group > label {
@@ -818,7 +825,18 @@ input[type="checkbox"]:disabled + .label-text:before{
                                   supported by Chrome and Opera */
 }
 
-
+.mt-5{
+    margin-top:5px !important;
+}
+.mb-5{
+    margin-bottom: 5px !important;
+}
+.mr-5{
+    margin-right: 5px !important;
+}
+.ml-5{
+    margin-left: 5px !important;
+}
 @media (max-width: 979px){
     .display-inline.hidden-tablet, .hidden-tablet, .hidden-mobile {
         display: block !important;

@@ -196,4 +196,35 @@ class Glverification_transactions_model extends CI_Model {
             return "";
         }   
     }
+
+     /**
+     * Funtion get data for tab review and verify transaction to export
+     */
+    public function get_ReviewVerifyTransactions_ToExport($userid,$recongouptitle)
+    {
+        try {
+            if ($recongouptitle === NULL || $recongouptitle=="Total") {
+                $this->db->select("ReconItemCd,ReconGroupTitle,ReconItemTitle,NotVerified,Pending,Complete, AutoComplete,PriorNotVerified,PriorPending,NotVerifiedCount,PendingCount,CompleteCount,AutoCompleteCount,PriorNotVerifiedCount,PriorPendingCount,AmtM01x,AmtM02x,AmtM03x,AmtM04x,AmtM05x,AmtM06x,AmtM07x,AmtM08x,AmtM09x,AmtM10x,AmtM11x,AmtM12x,AmtTotx");
+                $this->db->from("SOM_AA_TransactionSummary");
+                $this->db->where("SessionUserid",$userid);
+                
+            }else{
+                $this->db->select("ReconItemCd,ReconGroupTitle,ReconItemTitle,NotVerified,Pending,Complete, AutoComplete,PriorNotVerified,PriorPending,NotVerifiedCount,PendingCount,CompleteCount,AutoCompleteCount,PriorNotVerifiedCount,PriorPendingCount,AmtM01x,AmtM02x,AmtM03x,AmtM04x,AmtM05x,AmtM06x,AmtM07x,AmtM08x,AmtM09x,AmtM10x,AmtM11x,AmtM12x,AmtTotx");
+                $this->db->from("SOM_AA_TransactionSummary");
+                $this->db->where("SessionUserid",$userid);
+                $this->db->where("ReconGroupTitle",$recongouptitle);
+               // $this->db->where("Sort1 != 'UnCoded'");          
+            }
+           
+            $this->db->order_by("Sort1 asc, Sort2 asc");           
+            $query = $this->db->get();
+            log_message('info',"get_ReviewVerifyTransactions_ToExport SQL= " . $this->db->last_query());
+            
+            return $query->result();   
+        }
+        catch(Exception $e){
+            log_message('error',"get_ReviewVerifyTransactions_ToExport: ".$e->getMessage());
+            return "";
+        }   
+    }
 }

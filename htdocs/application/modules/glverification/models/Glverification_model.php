@@ -124,6 +124,88 @@ class Glverification_model extends CI_Model {
         }
     }
 
+     /**
+     * Function get GLV item detail for click on item in Review and Verify Transactions tab to export
+     * */
+    public function get_VerifyGLVItemDetails_ToExport($deptid,$bu,$fy,$fp,$reconitemcd,$reconstatuscd,$recongrouptitle,$priormonth,$filterName, $site)
+    {
+        try {
+            $where = $this->db->query(' select dbo.fn_SOM_BFA_GetWhereFromSavedFilter (?, ?, ?, ?, 0) as WhereStr ',array($this->session->userdata['userid'],$deptid,$deptid,$filterName))->result()[0]->WhereStr;
+            log_message('info',"getquery filter SQL= " . $this->db->last_query());
+            if ($reconitemcd == 0) {
+                if ($priormonth == 1) {
+                    $queryStr = "select lkp_userprofile.user_name,vw_COA_Report_Ledger_Details.*, Comment_GLVType.id as CommentGLVTypeId  
+                    from vw_COA_Report_Ledger_Details 
+                    LEFT JOIN lkp_userprofile ON vw_COA_Report_Ledger_Details.ReconUser = lkp_userprofile.user_id
+                    LEFT JOIN Comment_GLVType ON vw_COA_Report_Ledger_Details.uniqueid = Comment_GLVType.UniqueId 
+                    AND Comment_GLVType.CommentType = ? 
+                    where systemledger='ACTUALS' And (AccountLevelACd='4000A'
+                    Or AccountLevelACd='5000A' Or AccountLevelACd='5700A') And ReconGroupTitle = ? AND ReconStatusCd = ? AND FiscalYear = ?  AND FiscalPeriod < ?  AND (DeptLevel1Cd = ? OR DeptLevel2Cd = ?
+                    OR DeptLevel3Cd = ? OR DeptLevel4Cd = ? OR DeptLevel5Cd = ? OR DeptLevel6Cd = ?) AND BusinessUnitCd =  ?";
+                }else{
+                    $queryStr = "select lkp_userprofile.user_name,vw_COA_Report_Ledger_Details.*, Comment_GLVType.id as CommentGLVTypeId 
+                    from vw_COA_Report_Ledger_Details 
+                    LEFT JOIN lkp_userprofile ON vw_COA_Report_Ledger_Details.ReconUser = lkp_userprofile.user_id
+                    LEFT JOIN Comment_GLVType ON vw_COA_Report_Ledger_Details.uniqueid = Comment_GLVType.UniqueId 
+                    AND Comment_GLVType.CommentType = ? 
+                    where systemledger='ACTUALS' And (AccountLevelACd='4000A'
+                    Or AccountLevelACd='5000A' Or AccountLevelACd='5700A') And ReconGroupTitle = ? AND ReconStatusCd = ? AND FiscalYear = ?  AND FiscalPeriod = ?  AND (DeptLevel1Cd = ? OR DeptLevel2Cd = ?
+                    OR DeptLevel3Cd = ? OR DeptLevel4Cd = ? OR DeptLevel5Cd = ? OR DeptLevel6Cd = ?) AND BusinessUnitCd =  ?";
+                }
+                if ($site != "%"){
+                    $queryStr=  $queryStr." AND DeptSite = ? AND  ".$where;
+                } else{
+                    $queryStr=  $queryStr." AND DeptSite like ? AND  ".$where;
+                }
+
+              
+                    $query =  $this->db->query(  $queryStr,array(TRANSACTION_TYPE,$recongrouptitle,$reconstatuscd,$fy,$fp,$deptid,$deptid,$deptid,$deptid,$deptid,$deptid,$bu,$site ));
+                
+            }else{
+                if ($priormonth == 1) {
+                    $queryStr = "select lkp_userprofile.user_name,vw_COA_Report_Ledger_Details.*, Comment_GLVType.id as CommentGLVTypeId 
+                    from vw_COA_Report_Ledger_Details 
+                    LEFT JOIN lkp_userprofile ON vw_COA_Report_Ledger_Details.ReconUser = lkp_userprofile.user_id
+                    LEFT JOIN Comment_GLVType ON vw_COA_Report_Ledger_Details.uniqueid = Comment_GLVType.UniqueId 
+                    AND Comment_GLVType.CommentType = ? 
+                    where systemledger='ACTUALS' And (AccountLevelACd='4000A'
+                    Or AccountLevelACd='5000A' Or AccountLevelACd='5700A') And ReconItemCd = ? AND ReconStatusCd = ? AND FiscalYear = ?  AND FiscalPeriod < ?  AND (DeptLevel1Cd = ? OR DeptLevel2Cd = ?
+                    OR DeptLevel3Cd = ? OR DeptLevel4Cd = ? OR DeptLevel5Cd = ? OR DeptLevel6Cd = ?) AND BusinessUnitCd =  ? ";
+            
+                }else{
+                    $queryStr = "select lkp_userprofile.user_name,vw_COA_Report_Ledger_Details.*, Comment_GLVType.id as CommentGLVTypeId 
+                    from vw_COA_Report_Ledger_Details 
+                    LEFT JOIN lkp_userprofile ON vw_COA_Report_Ledger_Details.ReconUser = lkp_userprofile.user_id
+                    LEFT JOIN Comment_GLVType ON vw_COA_Report_Ledger_Details.uniqueid = Comment_GLVType.UniqueId 
+                    AND Comment_GLVType.CommentType = ? 
+                    where systemledger='ACTUALS' And (AccountLevelACd='4000A'
+                    Or AccountLevelACd='5000A' Or AccountLevelACd='5700A') And ReconItemCd = ? AND ReconStatusCd = ? AND FiscalYear = ?  AND FiscalPeriod = ?  AND (DeptLevel1Cd = ? OR DeptLevel2Cd = ?
+                    OR DeptLevel3Cd = ? OR DeptLevel4Cd = ? OR DeptLevel5Cd = ? OR DeptLevel6Cd = ?) AND BusinessUnitCd =  ? ";
+            
+                }
+                if ($site != "%"){
+                    $queryStr=  $queryStr." AND DeptSite = ? AND  ".$where;
+                } else{
+                    $queryStr=  $queryStr." AND DeptSite like ? AND  ".$where;
+                }
+               
+              
+                    $query =  $this->db->query(  $queryStr,array(TRANSACTION_TYPE,$reconitemcd,$reconstatuscd,$fy,$fp,$deptid,$deptid,$deptid,$deptid,$deptid,$deptid,$bu,$site ));
+                
+              
+            //$rowcount = $query->num_rows();
+            }
+            $data = $query->result();
+            log_message('info',"get_VerifyGLVItemDetails_ToExport SQL= " . $this->db->last_query());
+
+            return $data;
+        }
+        catch(Exception $e){
+            log_message('error',"get_VerifyGLVItemDetails_ToExport: ".$e->getMessage());
+            return "";
+        }
+    }
+
     /**
      * Function count total item in GLV item detail
      * */

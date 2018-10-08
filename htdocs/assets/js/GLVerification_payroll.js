@@ -105,6 +105,9 @@ var GLVerification_payroll_Management = function () {
     ];
 
     self.glverification_payroll_table = function(){
+        $("#drPayrollFilter").val("PositionTitleCategory");
+         $('#inputFilter').show();      
+        $('#txtPayrollFilter').val("");   
         self.glverification_payroll_verify_table();
         self.glverification_payroll_FTE_table();
         self.glverification_payroll_expense_table("",$("#drPayrollFilter").val(),$("#txtPayrollFilter").val());
@@ -875,6 +878,59 @@ var GLVerification_payroll_Management = function () {
                 $("#exp_" + (index + 1)).text(listHeader[index]);
             }
         }
+         $('#exportPayroll').click(function() {
+           ShowBusy();
+            $.ajax({ url: base_url + '/glverification/export_payroll_expense',
+                data: {
+                    "emp_name": empName, 
+                    "changedEmp":"false",
+                    "listHeader" : listHeader
+                     },
+                type: 'POST',
+                dataType: "json",
+                success: function(data) {
+                    HideBusy();
+                },
+                error: function (request, status, error) {
+                    HideBusy();
+
+                }
+            }).done(function(data){
+                var $a = $("<a>");
+                $a.attr("href",data.file);
+                $("body").append($a);
+                $a.attr("download","PayrollData"+$.now()+".xlsx");
+                $a[0].click();
+                $a.remove();
+            });
+        });
+
+         $('#exportPayrollChanged').click(function() {
+           ShowBusy();
+            $.ajax({ url: base_url + '/glverification/export_payroll_expense',
+                data: {
+                    "emp_name": empName, 
+                    "changedEmp":"true",
+                    "listHeader" : listHeader
+                },
+                type: 'POST',
+                dataType: "json",
+                success: function(data) {
+                    HideBusy();
+                },
+                error: function (request, status, error) {
+                    HideBusy();
+                }
+            }).done(function(data){
+                var $a = $("<a>");
+                $a.attr("href",data.file);
+                $("body").append($a);
+                $a.attr("download","PayrollChangedData"+$.now()+".xlsx");
+                $a[0].click();
+                $a.remove();
+            });
+        });
+
 
         $('#dt_payroll_expense_detail').DataTable().clear().destroy();
         //datatables

@@ -23,6 +23,7 @@ var GLVerificationManagement = function () {
     });
         });
 
+         
         //load drp reportdate
         var month_to_number = {
             'Jan' : '1',
@@ -131,6 +132,7 @@ var GLVerificationManagement = function () {
 
         ////event click on tabs payroll load all payroll
         $('#tabspayroll').click(function() {
+
             glv_payroll.glverification_payroll_table();
         });
         var previousValue =""; //store previous value of dropdownbox
@@ -541,11 +543,15 @@ var GLVerificationManagement = function () {
         $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:0%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span  style="width:100%;background-color:#f0bcbc;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">0%</div>');
 
     }else if (oData[10]>0)   {
-       
             if (percentCompleted>0){
                     $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + percentCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -1px -1px -1px;">&nbsp;</span><span  style="width:' + percentPending + '%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 1px;">&nbsp;</span><span  style="width:' + percentNotverified+ '%;background-color:#f0bcbc;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 0px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
                  } else{
                     $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + percentCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: 0px;margin:-1px -1px -1px -1px;">&nbsp;</span><span  style="width:' + percentPending + '%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 1px;">&nbsp;</span><span  style="width:' + percentNotverified+ '%;background-color:#f0bcbc;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 0px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
+                }
+
+                if(percentNotverified===0){
+                    $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + percentCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -1px -1px -1px;">&nbsp;</span><span  style="width:' + percentPending + '%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 1px;">&nbsp;</span><span  style="width:' + percentNotverified+ '%;background-color:#f0bcbc;line-height: 20px;display: inline-block;margin:-1px 0px -1px 0px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
+
                 }
     }else {
                 $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + totalCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -2px -1px -1px;">&nbsp;</span><span  style="width:' + percentNotverified + '%;background-color:#f0bcbc;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 2px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
@@ -664,18 +670,32 @@ self.getMonthlyTrendPercent();
             phone : 480
         };
 
+         $('#exportTransaction').click(function() {
+           ShowBusy();
+            $.ajax({ url: base_url + '/glverification/exportTransaction',
+                data: {"recongouptitle" : $ReconGroupTitle,"listHeader" : listHeader},
+                type: 'POST',
+                dataType: "json",
+                success: function(data) {
+                    HideBusy();
+                },
+                error: function (request, status, error) {
+                    HideBusy();
+                }
+            }).done(function(data){
+                var $a = $("<a>");
+                $a.attr("href",data.file);
+                $("body").append($a);
+                $a.attr("download","TransactionData"+$.now()+".xlsx");
+                $a[0].click();
+                $a.remove();
+            });
+        });
+
+
         //Load Transaction table
         $('#dt_transaction').DataTable().clear().destroy();
         var oTable = $('#dt_transaction').DataTable({
-            dom: 'Bfrtip',
-             buttons: [
-                     {
-                        extend: 'excelHtml5',
-                       exportOptions: {
-                            columns: ':visible'
-                        }
-                    }                
-             ],
             "infoEmpty": "No records available",
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -1459,17 +1479,40 @@ self.getMonthlyTrendPercent();
             tablet : 1024,
             phone : 480
         };
+
+        $('#exportGLVItemDetails').click(function() {
+           ShowBusy();
+            $.ajax({ 
+                url: base_url + '/glverification/exportGLVItemDetails',
+                data: {
+                    "reconitemcd" : reconitemcd,
+                    "reconstatuscd": reconstatuscd,
+                    "recongrouptitle"  : recongrouptitle,
+                    "priormonth":priormonth,
+                    "deptid":$("#drpdeptid option:selected").val(),
+                    "busunit":$("#drpbusunit option:selected").val(),
+                    "myfilter": $("#drpFilters option:selected").val()
+                },
+                type: 'POST',
+                dataType: "json",
+                success: function(data) {
+                    HideBusy();
+                },
+                error: function (request, status, error) {
+                    HideBusy();
+                }
+            }).done(function(data){
+                var $a = $("<a>");
+                $a.attr("href",data.file);
+                $("body").append($a);
+                $a.attr("download","GLVItemDetailsData"+$.now()+".xlsx");
+                $a[0].click();
+                $a.remove();
+            });
+        });
+
         $('#dt_verifyglvitems').DataTable().clear().destroy();
         var oTable = $('#dt_verifyglvitems').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                     {
-                        extend: 'excelHtml5',
-                       exportOptions: {
-                            columns: ':visible'
-                        }
-                    }                
-             ],
             "bFilter" : false,
             "autoWidth": false,
             "infoEmpty": "No records available",
@@ -1806,6 +1849,8 @@ self.getMonthlyTrendPercent();
             }
         });
     }
+
+   
     }
 }
 
