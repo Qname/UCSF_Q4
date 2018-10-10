@@ -20,6 +20,7 @@ class Glverification extends MY_Controller {
         $this->load->model('Glverification_report_model','glverification_report');
         $this->load->model('Glverifivation_filter_model','glverification_filter');
         $this->load->model('Glverification_document_model','glverification_document');
+        $this->load->model('Monthly_trend_data_model','monthly_trend_data');
         $this->load->helper('function');
         $this ->load->library('form_validation');
     }
@@ -1569,10 +1570,8 @@ return $approve;
      * get all comments 
      * */
     public function getComments(){
-        $uniqueId = $this->test_input($_POST['uniqueId']);
         $comment_glvtype = $this->test_input($_POST["comment_glvtype"]);
-        $commentType= $this->test_input($_POST['commentType']);
-        $list = $this->glverification_payroll->getComments( $comment_glvtype, $uniqueId,$commentType);
+        $list = $this->glverification_payroll->getComments( $comment_glvtype);
         if($list) {
             $output = array(
                 "data" => $list,
@@ -1602,9 +1601,9 @@ return $approve;
     public function addAdditionalComments(){
         $comment = $this->test_input($_POST['comment']);
         $userId = $this->session->userdata['userid'];
-        $commentUserId =  $this->test_input($_POST['commentUserId']);
+        $comment_glvType =  $this->test_input($_POST['comment_glvType_Id']);
         $date = $this->general->getServerDate();
-        $result = $this->glverification_payroll->addAdditionalComments( $comment, $userId,$date,$commentUserId);
+        $result = $this->glverification_payroll->addAdditionalComments( $comment, $userId,$date,$comment_glvType);
         echo json_encode($result);
     }
 
@@ -1621,6 +1620,44 @@ return $approve;
         echo json_encode($result);
     }
 
+     /**
+     * get Monthly Trend Data Id
+     * */
+    public function getMonthlyTrendDataId(){
+        $deptId = $this->test_input($_POST["deptId"]);
+        $fy = $this->session->userdata['fy'];
+        $fp=  $this->session->userdata['fp'];
+        $businessUnitCd = $this->test_input($_POST["businessUnit"]);
+        $site = $this->test_input($_POST['site']);       
 
+        $result = $this->monthly_trend_data->getMonthlyTrendDataId($fy, $fp,$businessUnitCd,$site,$deptId);
+        echo json_encode($result);
+    }
+
+     /**
+     * get GLVComentTypeId For MonthlyTrendDataId
+     * */
+    public function getGLVComentTypeIdForMonthlyTrendDataId(){            
+        $monthlyTrendDataId = $this->test_input($_POST['monthlyTrendDataId']); 
+
+        $result = $this->monthly_trend_data->getGLVComentTypeIdForMonthlyTrendDataId($monthlyTrendDataId);
+        echo json_encode($result);
+    }
+
+     /**
+     * check ExistedComment For MonthlyTrendDataId
+     * */
+    public function checkExistedCommentForMonthlyTrendDataId(){            
+        $deptId = $this->test_input($_POST["deptId"]);
+        $fy = $this->session->userdata['fy'];
+        $fp=  $this->session->userdata['fp'];
+        $businessUnitCd = $this->test_input($_POST["businessUnit"]);
+        $site = $this->test_input($_POST['site']);       
+
+        $MonthlyTrendDataId = $this->monthly_trend_data->getMonthlyTrendDataId($fy, $fp,$businessUnitCd,$site,$deptId);
+
+        $GLVComentTypeId = $this->monthly_trend_data->getGLVComentTypeIdForMonthlyTrendDataId($MonthlyTrendDataId);
+        echo json_encode($GLVComentTypeId);
+    }
 
 }

@@ -1,0 +1,23 @@
+USE [GLVData]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[MonthlyTrendData](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Fy] [int] NULL,
+	[Fp] [int] NULL,
+	[DeptId] [varchar](30) NULL,
+	[BussinessCd] [varchar](30) NULL,
+	[Site] [varchar](30) NULL,
+ CONSTRAINT [PK_Monthly_Trend_Data] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO

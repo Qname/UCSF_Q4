@@ -150,13 +150,13 @@ var GLVerificationManagement = function () {
         })
 
         $('#tabsmonthtrend').click(function(){
-
             if($('#drpdeptid').val()){
                 ShowBusy();
                 glv_MonthlyTrend.getUrlMonthlyTrend();
             } else{
                 document.getElementById('monthlyTrendUrl').src ="";
-            }         
+            }   
+            self.checkExistedCommentForMonthlyTrendDataId();      
         });
         
         //event click on button Acknowledgement in tabs dashboard
@@ -284,6 +284,7 @@ var GLVerificationManagement = function () {
             } else{
                 document.getElementById('monthlyTrendUrl').src ="";
             } 
+            self.checkExistedCommentForMonthlyTrendDataId(); 
         });
 
      
@@ -1453,8 +1454,10 @@ self.getMonthlyTrendPercent();
         if($("#comment_Type").val() == "Payroll"){
          //   self.glverification_payroll_verify_table();
             $('#dt_payroll_verification').DataTable().ajax.reload(null,false);
-        } else{
+        } else if ($("#comment_Type").val() == "Transaction"){
             $('#dt_verifyglvitems').DataTable().ajax.reload(null,false);
+        }else{
+            self.checkExistedCommentForMonthlyTrendDataId();
         }
     });
     
@@ -1467,6 +1470,79 @@ self.getMonthlyTrendPercent();
         $("#cancelCommentBtn").addClass('display-none');
         $("#addEditCommentDiv").addClass('display-none');
     });  
+
+    //load comment for monthly trend tab
+     self.loadCommentMonthlyTrend = function () {
+        var deptId = $("#drpdeptid option:selected").val()
+        var bu = $("#drpbusunit").val();
+        var site = $("#drpsite").val();
+        $.ajax({ url: base_url + 'glverification/getMonthlyTrendDataId',
+            data: {deptId: deptId, businessUnit: bu, site:site},
+            type: 'POST',
+            dataType: "json",
+            success: function(data) {
+                $("#uniqueId").val(data); 
+                self.loadGLVComentTypeIdForMonthlyTrendDataId(data);
+            },
+            error: function (request, status, error) {
+                alert(error);
+            }
+        });
+    }
+
+    //load GLVComentTypeId For MonthlyTrendDataId
+     self.loadGLVComentTypeIdForMonthlyTrendDataId= function (monthTrendId) {
+        $.ajax({ url: base_url + 'glverification/getGLVComentTypeIdForMonthlyTrendDataId',
+            data: {monthlyTrendDataId: monthTrendId},
+            type: 'POST',
+            dataType: "json",
+            success: function(data) {
+                $("#comment_glvtype").val(data); 
+                $("#ModalGLVComments").modal({backdrop: 'static', keyboard: false});;
+                $("#ModalGLVComments").removeData();
+                $('#dt_glvcomments').DataTable().clear().destroy();
+                $("#current_comment").val('');
+                $("#addCommentBtn").removeAttr("disabled");
+                glv_payroll.renewComment();
+                glv_payroll.loadCommentDataTable();
+            },
+            error: function (request, status, error) {
+                alert(error);
+            }
+        });
+    }
+
+     // check Existed Comment ForMonthly Trend Data Id
+     self.checkExistedCommentForMonthlyTrendDataId= function () {
+         var deptId = $("#drpdeptid option:selected").val()
+         var bu = $("#drpbusunit").val();
+         var site = $("#drpsite").val();
+         $.ajax({ url: base_url + 'glverification/checkExistedCommentForMonthlyTrendDataId',
+            data: {deptId: deptId, businessUnit: bu, site:site},
+            type: 'POST',
+            dataType: "json",
+            success: function(data) {
+             if(data>0){
+                $( "#commentMonthly" ).removeClass( "glyphicon-plus-sign" ).addClass( "glyphicon-comment" );
+            }else{
+                $( "#commentMonthly" ).removeClass( "glyphicon-comment" ).addClass( "glyphicon-plus-sign" );
+            }
+        },
+        error: function (request, status, error) {
+            alert(error);
+        }
+    });
+
+
+     }
+
+    //load data for monthly trend table
+
+     $("#commentMonthly").on('click', function (e) {
+         $("#comment_Type").val("MonthlyTrend"); 
+          self.loadCommentMonthlyTrend();          
+                
+            });
 
     //load table Verify GLV Item details
     self.glverification_GLVItemDetails_table = function(reconitemcd,reconstatuscd,recongrouptitle,priormonth){      
@@ -1637,7 +1713,7 @@ self.getMonthlyTrendPercent();
                 $("#current_comment").val('');
                 $("#addCommentBtn").removeAttr("disabled");
                 glv_payroll.renewComment();
-                glv_payroll.loadCommentDataTable($("#comment_Type").val());
+                glv_payroll.loadCommentDataTable();
             });
             // var glvcomment = $('<input class=\"inputcomment form-control\" type=\"input\" id="txtreconcomment_'+oData[0]+'" value="' + (sData === null ? " " : sData) + '">');
             // $(nTd).empty();

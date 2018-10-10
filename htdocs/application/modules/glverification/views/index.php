@@ -372,7 +372,9 @@
                         <div>
                             <button type="button" disabled style="width:100px;margin-bottom:10px;" id="monthlyTrendDropBtn">Save</button>
                         </div>
-                        
+                        <div id="commentMonthlyTrend">
+                            <i class="glyphicon gi-2x cursor-pointer " id="commentMonthly" ></i>
+                        </div>
                         <div >
                             <iframe id="monthlyTrendUrl" src="" style="width:100%;height:900px; "></iframe>
                         </div>

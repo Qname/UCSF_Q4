@@ -248,7 +248,7 @@ var GLVerification_payroll_Management = function () {
                 $("#uniqueId").val(oData[0]);
                 $("#current_comment").val('');
                 self.renewComment();
-                self.loadCommentDataTable($("#comment_Type").val());
+                self.loadCommentDataTable();
             });
         } },
         { "targets": [ 7 ], "class": "col80 text-center", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
@@ -328,11 +328,10 @@ var GLVerification_payroll_Management = function () {
 	
  //load comment table
      //load table payroll verifycation
-     self.loadCommentDataTable = function(commenType){
+     self.loadCommentDataTable = function(){
         var comment_glvtype = $("#comment_glvtype").val();
+
         $('#dt_glvcomments').DataTable().clear().destroy();
-        //if(comment_UserId != ''&& comment_UserId !=null){
-        var uniqueId = $("#uniqueId").val();   
         $('#dt_glvcomments').DataTable({
             "infoEmpty": "No comments available.",
             "fixedHeader": true,
@@ -354,15 +353,15 @@ var GLVerification_payroll_Management = function () {
             "bInfo" : false,
             "ajax": {
                 "url": base_url + '/glverification/getComments',
-                "data": {comment_glvtype: comment_glvtype, uniqueId: uniqueId, commentType: commenType},
+                "data": {comment_glvtype: comment_glvtype},
                 "type": "POST",
                 "error":function(err,xhr){
                     alert('There was a problem loading comments. Please try reloading the page.');
                 }
             },
             "columnDefs": [  
-                { "targets": [ 0 ], "class":"col50", "visible": false},
-                { "targets": [ 1 ], "class": "col50", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) 
+                { "targets": [ 0 ], "class":"col50 size-12", "visible": false},
+                { "targets": [ 1 ], "class": "col50 size-12", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) 
                     {
                         if(oData[4] !=null && oData[4] == $("#hidden_userid").html().toLowerCase()){
                             $(nTd).empty();
@@ -383,12 +382,12 @@ var GLVerification_payroll_Management = function () {
                         }
                     } 
                 },
-                { "targets": [ 2 ], "class": "col50", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) 
+                { "targets": [ 2 ], "class": "col50 size-12", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) 
                     {
                         $(nTd).html(sData.split(".")[0]);
                     }
                 },
-                { "targets": [ 3 ], "class":"col50"},                    
+                { "targets": [ 3 ], "class":"col50 size-12"},                    
                 { "targets": [ 4 ], "class":"col50", "visible": false},
             ]
         });    
@@ -640,7 +639,12 @@ var GLVerification_payroll_Management = function () {
     $('#addCommentBtn').on('click', function(){
         $("#saveCommentBtn").attr("disabled", "disabled");
         $("#saveCommentBtn").removeClass('display-none');
-        $("#saveCommentBtn").html('Add Comment');
+
+        if($("#comment_Type").val() == "MonthlyTrend"){
+            $("#saveCommentBtn").html('Submit');
+        } else {
+            $("#saveCommentBtn").html('Add Comment');  
+        }
         $("#addCommentBtn").addClass('display-none');
         $("#cancelCommentBtn").removeClass('display-none');
         $("#addEditCommentDiv").removeClass('display-none');
@@ -650,21 +654,21 @@ var GLVerification_payroll_Management = function () {
     });
 
     $("#saveCommentBtn").on("click",function(){
-        if(  $("#saveCommentBtn").html()=="Add Comment")
+        if(  $("#saveCommentBtn").html()=="Add Comment" || $("#saveCommentBtn").html()=="Submit")
         {
-            var currentComment_User_Id =  $("#comment_glvtype").val();
-            if(currentComment_User_Id !="" && currentComment_User_Id != null){ // add to current list comment
+            var comment_glvtype_Id =  $("#comment_glvtype").val();
+            if(comment_glvtype_Id !="" && comment_glvtype_Id != null){ // add to current list comment
                 var comment =  $("#current_comment").val();
                 ShowBusy();
                 $.ajax({ url: base_url + '/glverification/addAdditionalComments',
-                    data: {comment: comment, commentUserId: currentComment_User_Id},
+                    data: {comment: comment, comment_glvType_Id: comment_glvtype_Id},
                     type: 'POST',
                     dataType: "json",
                     success: function(data) {
                         HideBusy();
                         if (data) {
                             self.renewComment();
-                            self.loadCommentDataTable($("#comment_Type").val());
+                            self.loadCommentDataTable();
                             $("#comment_result").html("<span style='color:#000;'>Comment has been added successfully.</span>");
                             $("#comment_result").show('fast');
                             setTimeout( function() {
@@ -704,7 +708,7 @@ var GLVerification_payroll_Management = function () {
                         if(data != null){
                             $("#comment_glvtype").val(data);
                             self.renewComment();
-                            self.loadCommentDataTable($("#comment_Type").val());
+                            self.loadCommentDataTable();
                             $("#comment_result").html("<span style='color:#000;'>Comment has been added successfully.</span>");
                             $("#comment_result").show('fast');
                             setTimeout( function() {
@@ -744,9 +748,15 @@ var GLVerification_payroll_Management = function () {
                 success: function(data) {
                     HideBusy();
                     if (data) {
-                        $("#saveCommentBtn").html("Add Comment");
+
+                        if($("#comment_Type").val() == "MonthlyTrend"){
+                            $("#saveCommentBtn").html('Submit');
+                        } else {
+                            $("#saveCommentBtn").html('Add Comment');  
+                        }
+                       // $("#saveCommentBtn").html("Add Comment");
                         self.renewComment();
-                        self.loadCommentDataTable($("#comment_Type").val());
+                        self.loadCommentDataTable();
                         $("#comment_result").html("<span style='color:#000;'>Comment has been saved.</span>");
                         $("#comment_result").show('fast');
                         setTimeout( function() {
@@ -763,7 +773,13 @@ var GLVerification_payroll_Management = function () {
                     }                
                 },
                 error: function (request, status, error) {
-                    $("#saveCommentBtn").html("Add Comment");
+
+                    if($("#comment_Type").val() == "MonthlyTrend"){
+                        $("#saveCommentBtn").html('Submit');
+                    } else {
+                        $("#saveCommentBtn").html('Add Comment');  
+                    }
+                 //   $("#saveCommentBtn").html("Add Comment");
                     $("#saveCommentBtn").removeAttr("disabled");
                     $("#cancelCommentBtn").addClass('display-none');
                     $("#addEditCommentDiv").addClass('display-none');

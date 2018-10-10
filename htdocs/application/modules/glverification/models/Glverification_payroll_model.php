@@ -356,15 +356,13 @@ class Glverification_payroll_model extends CI_Model {
      /**
      * Get comments
      * */
-    public function getComments($commentUserId,$uniqueId,$commentType) 
+    public function getComments($comment_glvtype) 
     {
         try {
             $query = $this->db->query("select Comment.Id, Comment.Comment, Comment.Date,Comment.UserId, lkp_userprofile.nameFirst, lkp_userprofile.nameLast
-            from Comment inner join Comment_GlvType on Comment.Comment_GlvType = Comment_GlvType.Id 
-            inner join lkp_userprofile on Comment.UserId = lkp_userprofile.user_id
-            and  Comment.Comment_GlvType = ? and Comment_GlvType.UniqueId = ? 
-            and Comment_GlvType.CommentType = ? 
-            order by Comment.Date desc",array($commentUserId,$uniqueId,$commentType));
+            from Comment inner join lkp_userprofile on Comment.UserId = lkp_userprofile.user_id
+            and  Comment.Comment_GlvType = ? 
+            order by Comment.Date desc",array($comment_glvtype));
             if($query){
                 $list = $query->result();
                 log_message('info',"getComments SQL= " . $this->db->last_query());  
@@ -464,12 +462,12 @@ class Glverification_payroll_model extends CI_Model {
     public function addNewComment($uniqueId,$comment,$userId,$date,$commentType) 
     {
         try {
-            $commentUserId= "";
+            $comment_GlvTypeId= "";
             $this->db->trans_start();
             $this->db->query('INSERT INTO Comment_GlvType(UniqueId,CommentType) VALUES( ? , ?);', array($uniqueId,$commentType));
-            $commentUserId = $this->db->insert_id();
+            $comment_GlvTypeId = $this->db->insert_id();
             $this->db->query('insert into Comment(Comment,Comment_GlvType,UserId,Date)
-            values( ? , ? , ? , ? );', array($comment,$commentUserId,$userId,$date));      
+            values( ? , ? , ? , ? );', array($comment,$comment_GlvTypeId,$userId,$date));      
           
             if ($this->db->trans_status() === FALSE)
             {
@@ -482,7 +480,7 @@ class Glverification_payroll_model extends CI_Model {
                 $this->db->trans_commit();
             }
             log_message('info',"addNewComment SQL= " . $this->db->last_query());  
-            return $commentUserId;
+            return $comment_GlvTypeId;
         }
         catch(Exception $e){
             log_message('error',"addNewComment: ".$e->getMessage());
