@@ -364,10 +364,12 @@
                                 <option value="Not Verified">Not Verified</option>
                                 <option value="Complete">Complete</option>
                             </select>
-
-                            <label for="monthlyTrendDrop">
+                           
+                                 <label for="monthlyTrendDrop"  class="bgcolor-light-grey bd-lightgrey">
                                 Review department revenue and expense trends, look for deviations from Plan, historical actuals, or forecast, and verify that transactions are accurately recorded.
                             </label> 
+                            
+                           
                         </div>
                         <div>
                             <button type="button" disabled style="width:100px;margin-bottom:10px;" id="monthlyTrendDropBtn">Save</button>
