@@ -599,6 +599,7 @@ return $approve;
         foreach ($list as $itemdetails) {
             $row = array();
             $row[] = $itemdetails->uniqueid;
+            /** Old order
             $row[] = $itemdetails->BusinessUnitCd;
             $row[] = $itemdetails->DeptCd;
             $row[] = $itemdetails->FundCd;
@@ -631,7 +632,39 @@ return $approve;
             $row[] = $itemdetails->InvoiceDate;
             $row[] = $itemdetails->InvoiceReqDeptCd;
             $row[] = $itemdetails->InvoiceVendorName;
-            $row[] = $itemdetails->InvoiceVendorCd;   
+            $row[] = $itemdetails->InvoiceVendorCd;  
+            */
+
+            // new order
+            $row[] = $itemdetails->ReconStatusCd;    
+            $row[] = $itemdetails->CommentGLVTypeId; 
+            $row[] = $itemdetails->ReconLink;        
+            $row[] = $itemdetails->ReconAssignDesc;  
+            $row[] = $itemdetails->user_name;        
+            $row[] = $itemdetails->ReconDate;        
+            $row[] = $itemdetails->BusinessUnitCd;   
+            $row[] = $itemdetails->AccountCd;        
+            $row[] = $itemdetails->AccountTitleCd;   
+            $row[] = $itemdetails->FundCd;           
+            $row[] = $itemdetails->DeptCd;           
+            $row[] = $itemdetails->ProjectCd;       
+            $row[] = $itemdetails->ActivityCd;       
+            $row[] = $itemdetails->FunctionCd;       
+            $row[] = $itemdetails->FlexCd;           
+            $row[] = $itemdetails->JournalLineRef;   
+            $row[] = $itemdetails->Amount;          
+            $row[] = $itemdetails->JournalId;           
+            $row[] = $itemdetails->JournalPostDt;    
+            $row[] = $itemdetails->JournalOprDesc;   
+            $row[] = $itemdetails->JournalTitle;     
+            $row[] = $itemdetails->JournalLineDesc;  
+            $row[] = $itemdetails->InvoicePO;        
+            $row[] = $itemdetails->InvoiceId;        
+            $row[] = $itemdetails->InvoiceVoucherId; 
+            $row[] = $itemdetails->InvoiceDate;      
+            $row[] = $itemdetails->InvoiceReqDeptCd; 
+            $row[] = $itemdetails->InvoiceVendorName;
+            $row[] = $itemdetails->InvoiceVendorCd;
             $data[] = $row;
         }
 

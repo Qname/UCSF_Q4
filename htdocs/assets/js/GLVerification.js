@@ -1524,8 +1524,10 @@ self.getMonthlyTrendPercent();
             success: function(data) {
              if(data>0){
                 $( "#commentMonthly" ).removeClass( "glyphicon-plus-sign" ).addClass( "glyphicon-comment" );
+                $( "#textCommentMonthly" ).html('Show');
             }else{
                 $( "#commentMonthly" ).removeClass( "glyphicon-comment" ).addClass( "glyphicon-plus-sign" );
+                $( "#textCommentMonthly" ).html('Add');
             }
         },
         error: function (request, status, error) {
@@ -1649,10 +1651,12 @@ self.getMonthlyTrendPercent();
             "fnInitComplete": function(oSettings, json) {
                 //oSettings.fnDrawCallback = alert('redraw');
             },
+
+            /* Old order
             //Set column definition initialisation properties.
             "columnDefs": [
             {"targets": 0,"visible": false,"searchable": false},
-            {"class": "col40","targets": [0,1,2,3,4,5,6,7,8,9]},
+            {"class": "col40","targets": [0,10,2,3,4,5,6,7,8,9]},
             {"targets": 9,"visible": false,"searchable": false},
             {"class": "col50","targets": [ 10 ], "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                 var amount;
@@ -1694,10 +1698,10 @@ self.getMonthlyTrendPercent();
         {"class": "col40 text-center","targets": 12, "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
             var IconId = "commentIcon_"+oData[0].toString().trim();
             $(nTd).attr('data-uniqueId', oData[0]);
-          
+
             $("#uniqueId").val(oData[0]);
             if (sData == null || sData == ""){
-               
+
                 $(nTd).html('<i class=\"glyphicon glyphicon-plus-sign gi-2x cursor-pointer \" id=\"'+IconId+'\" ></i>');
             } else{
                 $(nTd).html('<i class=\"glyphicon glyphicon-comment gi-2x cursor-pointer \" id=\"'+IconId+'\" ></i>');
@@ -1739,17 +1743,17 @@ self.getMonthlyTrendPercent();
                    else
                     $(nTd).html("");
             }},
-        {"class": "col70","targets": [27,28,29,30,31,32,33]},
-        {"class": "col80 text-center","targets": 26,"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-            $(nTd).attr('data-document_uniqueid', oData[0]);
-            $(nTd).attr('data-document_glvtypeid', sData); 
-            $(nTd).attr('data-document_jnrlinedescription',oData[16]);
-            $(nTd).on('click', function (e) {
-                var document_uniqueid = $(this).data('document_uniqueid');
-                $("#document_glvtypeid").val($(this).data('document_glvtypeid'));
-                $("#document_uniqueid").val(document_uniqueid);
-                $("#jnrlinedescription").html($(this).data('document_jnrlinedescription'));
-                $("#upload_glvType").val('Transaction');
+            {"class": "col70","targets": [27,28,29,30,31,32,33]},
+            {"class": "col80 text-center","targets": 26,"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                $(nTd).attr('data-document_uniqueid', oData[0]);
+                $(nTd).attr('data-document_glvtypeid', sData); 
+                $(nTd).attr('data-document_jnrlinedescription',oData[16]);
+                $(nTd).on('click', function (e) {
+                    var document_uniqueid = $(this).data('document_uniqueid');
+                    $("#document_glvtypeid").val($(this).data('document_glvtypeid'));
+                    $("#document_uniqueid").val(document_uniqueid);
+                    $("#jnrlinedescription").html($(this).data('document_jnrlinedescription'));
+                    $("#upload_glvType").val('Transaction');
                 //reset current display
                 $('#msg_upload').html(""); // display success response from the server
                 $('#files').val('');
@@ -1757,21 +1761,145 @@ self.getMonthlyTrendPercent();
                 $("#ModalUploadDocument").removeData();
                 $("#upload_file").attr('disabled','disabled');
                 glv_payroll.loadListFiles( $("#upload_glvType").val(), $("#document_uniqueid").val(), $("#document_glvtypeid").val());
-              
+
             });
-            if (sData == null || sData == ""){
+                if (sData == null || sData == ""){
+                    $(nTd).empty();
+                    var uploadBt = $('<button aria-label=\"btn-upload\" type=\"button\" style=\"border:none;background-color:transparent;\"><i class=\"glyphicon glyphicon-upload gi-2x  \" id="uploadBt_'+oData[0]+'"  ></i></button>');
+                    $(nTd).prepend(uploadBt);
+                } else{
+                    $(nTd).empty();
+                    var uploadBt = $('<button aria-label=\"btn-attachment\" type=\"button\" style=\"border:none;background-color:transparent;\"><i class=\"glyphicon glyphicon-paperclip gi-2x  \" id="uploadBt_'+oData[0]+'"  ></i></button>');
+                    $(nTd).prepend(uploadBt);
+                }
+
+
+            }}
+            ]
+            */
+            // New order
+             "columnDefs": [
+             {"targets": 0,"visible": false,"searchable": false},
+             {"class": "col110","targets": 1, "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+            if(sData !=2000) {
+
+                var ddl = "<select aria-labelledby='lblhidden_status' class='form-control' id='drpreconstatuscd_"+oData[0]+"' >";
+                ddl = ddl + "<option value='0' "+(sData==0?'selected=selected':'')+">Not Verified</option>";
+                ddl = ddl + "<option value='1000' "+(sData==1000?'selected=selected':'')+">Pending</option>";
+                ddl = ddl + "<option value='3000' "+(sData==3000?'selected=selected':'')+">Complete</option>";
+                ddl += "</select>";
                 $(nTd).empty();
-                var uploadBt = $('<button aria-label=\"btn-upload\" type=\"button\" style=\"border:none;background-color:transparent;\"><i class=\"glyphicon glyphicon-upload gi-2x  \" id="uploadBt_'+oData[0]+'"  ></i></button>');
-                $(nTd).prepend(uploadBt);
-            } else{
-                $(nTd).empty();
-                var uploadBt = $('<button aria-label=\"btn-attachment\" type=\"button\" style=\"border:none;background-color:transparent;\"><i class=\"glyphicon glyphicon-paperclip gi-2x  \" id="uploadBt_'+oData[0]+'"  ></i></button>');
-                $(nTd).prepend(uploadBt);
+                $(nTd).prepend(ddl);
+
+                $("#btnmoveallto_verified").show();
+                $("#btnmoveallto_pending").show();
+                $("#btnmoveallto_completed").show();
+                $("#btnresetall").show();
+                $("#saveGLVItemDetails").show();
+            }else{
+                $("#btnmoveallto_verified").hide();
+                $("#btnmoveallto_pending").hide();
+                $("#btnmoveallto_completed").hide();
+                $("#btnresetall").hide();
+                $("#saveGLVItemDetails").hide();
+                $(nTd).text('Auto Complete');
             }
-          
-     
-        }}
-        ]
+        } },
+         {"class": "col40 text-center","targets": 2, "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+            var IconId = "commentIcon_"+oData[0].toString().trim();
+            $(nTd).attr('data-uniqueId', oData[0]);
+
+            $("#uniqueId").val(oData[0]);
+            if (sData == null || sData == ""){
+
+                $(nTd).html('<i class=\"glyphicon glyphicon-plus-sign gi-2x cursor-pointer \" id=\"'+IconId+'\" ></i>');
+            } else{
+                $(nTd).html('<i class=\"glyphicon glyphicon-comment gi-2x cursor-pointer \" id=\"'+IconId+'\" ></i>');
+            }
+            $(nTd).on('click', function (e) {
+                $("#comment_Type").val("Transaction");
+                $("#comment_glvtype").val(oData[2]);    
+                $("#ModalGLVComments").modal({backdrop: 'static', keyboard: false});;
+                $("#ModalGLVComments").removeData();
+                $('#dt_glvcomments').DataTable().clear().destroy();
+                $("#uniqueIdComment").html("[" + oData[22] + "]");
+                $("#uniqueId").val(oData[0]);
+                $("#current_comment").val('');
+                $("#addCommentBtn").removeAttr("disabled");
+                glv_payroll.renewComment();
+                glv_payroll.loadCommentDataTable();
+            });
+            // var glvcomment = $('<input class=\"inputcomment form-control\" type=\"input\" id="txtreconcomment_'+oData[0]+'" value="' + (sData === null ? " " : sData) + '">');
+            // $(nTd).empty();
+            // $(nTd).prepend(glvcomment);
+        } },
+        {"class": "col80 text-center","targets": 3,"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                $(nTd).attr('data-document_uniqueid', oData[0]);
+                $(nTd).attr('data-document_glvtypeid', sData); 
+                $(nTd).attr('data-document_jnrlinedescription',oData[22]);
+                $(nTd).on('click', function (e) {
+                    var document_uniqueid = $(this).data('document_uniqueid');
+                    $("#document_glvtypeid").val($(this).data('document_glvtypeid'));
+                    $("#document_uniqueid").val(document_uniqueid);
+                    $("#jnrlinedescription").html($(this).data('document_jnrlinedescription'));
+                    $("#upload_glvType").val('Transaction');
+                //reset current display
+                $('#msg_upload').html(""); // display success response from the server
+                $('#files').val('');
+                $("#ModalUploadDocument").modal({backdrop: 'static', keyboard: false});
+                $("#ModalUploadDocument").removeData();
+                $("#upload_file").attr('disabled','disabled');
+                glv_payroll.loadListFiles( $("#upload_glvType").val(), $("#document_uniqueid").val(), $("#document_glvtypeid").val());
+
+            });
+                if (sData == null || sData == ""){
+                    $(nTd).empty();
+                    var uploadBt = $('<button aria-label=\"btn-upload\" type=\"button\" style=\"border:none;background-color:transparent;\"><i class=\"glyphicon glyphicon-upload gi-2x  \" id="uploadBt_'+oData[0]+'"  ></i></button>');
+                    $(nTd).prepend(uploadBt);
+                } else{
+                    $(nTd).empty();
+                    var uploadBt = $('<button aria-label=\"btn-attachment\" type=\"button\" style=\"border:none;background-color:transparent;\"><i class=\"glyphicon glyphicon-paperclip gi-2x  \" id="uploadBt_'+oData[0]+'"  ></i></button>');
+                    $(nTd).prepend(uploadBt);
+                }
+
+
+            }},
+            {"class": "col180","targets": [4]}, 
+            {"class": "col170","targets": [5]},
+            {"class": "col100","targets": [6], "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+            if (sData != "" && sData != null) {
+                       // var date = new Date(sData).toISOString().split(".")[0].replace("T", " ");                      
+                       $(nTd).html(sData.split(".")[0]);
+                   }
+                   else
+                    $(nTd).html("");
+            }},
+            {"class": "col40","targets": [7,8,10,11,12,13,14,15]},
+            {"class": "col250","targets": [9]},
+            {"class": "col50","targets": [16]},
+            {"class": "col50","targets": [ 17 ], "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                    var amount;
+                    if (parseFloat(sData) === 0 || sData === null ) {
+                        amount = 0;
+                    } else if (parseFloat(sData) < 0) {
+                        amount="("+parseFloat(sData).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,").replace('-', '')+")";
+                    } else {
+                        amount=parseFloat(sData).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+                    }
+                    $(nTd).html(amount);
+                }
+            },
+            {"class": "col60","targets": [18]},
+            {"class": "col130","targets": [19]},
+            {"class": "col130","targets": [20]},
+            {"class": "col400","targets": [21]}, 
+            {"class": "col150","targets": [22]},
+            {"class": "col70","targets": [23,24,25,26,27,28,29]}
+
+
+            // end New order
+            ]
+
         });
         
         // Show hide column in table
@@ -1799,8 +1927,21 @@ self.getMonthlyTrendPercent();
                 var reconstatus = $("#drpreconstatuscd_" + data[index][0]).val() ? $("#drpreconstatuscd_" + data[index][0]).val().trim(): 2000;
                 
            //     var reconcomment = $("#txtreconcomment_" + data[index][0]).val().trim();
+           /* Old order
                 if(data[index][11]==null) data[index][11]="";
                 if (reconstatus != data[index][11] ) {
+                    var changeData = {};
+                    changeData.uniqueid = data[index][0];
+                    changeData.reconstatuscd = reconstatus;
+                   // changeData.reconcomment = reconcomment;
+                    listData.push(changeData);
+                }
+            */
+
+            // New order
+
+            if(data[index][1]==null) data[index][1]="";
+                if (reconstatus != data[index][1] ) {
                     var changeData = {};
                     changeData.uniqueid = data[index][0];
                     changeData.reconstatuscd = reconstatus;

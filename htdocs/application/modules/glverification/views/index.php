@@ -373,7 +373,18 @@
                             <button type="button" disabled style="width:100px;margin-bottom:10px;" id="monthlyTrendDropBtn">Save</button>
                         </div>
                         <div id="commentMonthlyTrend">
-                            <i class="glyphicon gi-2x cursor-pointer " id="commentMonthly" ></i>
+                            <div class="col-xs-1 no-padding-left">
+                                <i class=" glyphicon gi-2x">Comments:</i> &nbsp;&nbsp;
+
+                            </div>
+                             
+                             <div class="col-xs-1" style="margin-top: -5px!important;">                                   
+                                        <span class="glyphicon  gi-3x ro " id="commentMonthly" ></span><br>
+                                        <span class="glyphicon-class" style="padding-left: 5px;" id="textCommentMonthly"></span> 
+                                     
+                             </div>
+                           
+                             
                         </div>
                         <div >
                             <iframe id="monthlyTrendUrl" src="" style="width:100%;height:900px; "></iframe>
@@ -398,6 +409,7 @@
                 <h4 class="modal-title modal-title-main" style="font-weight: bold;">Verify GLV Items</h4>
             </div>
             <div class="modal-body bodyglvdetail">
+                <!-- Pending Show/hide column function
                 <div class="panel panel-default">
                     <div class="panel-heading modal-title">Show/hide columns</div>                   
                     <div class="panel-body">
@@ -595,6 +607,7 @@
                         </div>
                     </div>
                 </div>
+                -->
                 <a class="pull-right btn btn-primary btn-xs mag-r-12 mb-5" id="exportGLVItemDetails" ><i class="fa fa-file-excel-o"></i> Export Data</a>
                 <div class="col-lg-12">
                     <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-0" data-widget-editbutton="false" role="widget" style="margin-bottom: 0;">
@@ -621,6 +634,7 @@
                             <thead>
                                 <tr>
                                     <th data-hide="phone">uniqueid</th>
+                                    <!-- Old order
                                     <th>BU</th>
                                     <th>Dept ID</th>
                                     <th>Fund</th>
@@ -654,6 +668,37 @@
                                     <th>Invoice Req Dept</th>
                                     <th>Vendor Name</th>
                                     <th>Vendor No</th>
+                                     -->
+                                     <!-- New order -->
+                                     <th>Verification Status</th>
+                                    <th>Verification Comments</th>
+                                    <th>Attachment</th>
+                                    <th>GLV assign Description</th>
+                                    <th>Verifier</th>
+                                    <th>Verification Date</th>
+                                    <th>Business Unit</th>
+                                    <th>Account</th>
+                                    <th>Account Description</th>
+                                    <th>Fund</th>
+                                    <th>Dept ID</th>
+                                    <th>Project ID</th>
+                                    <th>Activity Period</th>
+                                    <th>Function</th>
+                                    <th>Flex</th>
+                                    <th>Reference</th>
+                                    <th>Amount</th>
+                                    <th>Journal ID</th>
+                                    <th>Jrnl Post Dt</th>
+                                    <th>Jrnl Opr Desc</th>
+                                    <th>Journal Description</th>
+                                    <th>Journal Line Description</th>
+                                    <th>PO</th>
+                                    <th>Invoice</th>
+                                    <th>Voucher</th>
+                                    <th>Invoice Date</th>
+                                    <th>Invoice Req Date</th>
+                                    <th>Vendor name</th>
+                                    <th>Vendor No.</th>
                                 </tr>
                             </thead>
                             <tbody>
