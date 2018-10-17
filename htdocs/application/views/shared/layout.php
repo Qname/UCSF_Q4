@@ -141,14 +141,7 @@
 <script src="<?php echo base_url();?>assets/smartAdminTemplate/js/plugin/datatables/dataTables.tableTools.min.js"></script>
 <script src="<?php echo base_url();?>assets/smartAdminTemplate/js/plugin/datatables/dataTables.bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/smartAdminTemplate/js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
-<script src="<?php echo base_url();?>assets/smartAdminTemplate/js/plugin/datatables/dataTables.buttons.min.js"></script>
-<script src="<?php echo base_url();?>assets/smartAdminTemplate/js/plugin/datatables/buttons.html5.min.js"></script>
-<script src="<?php echo base_url();?>assets/smartAdminTemplate/js/plugin/datatables/jszip.min.js"></script>
-<!--script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script-->
 <script src="<?php echo base_url();?>assets/sumoselect/jquery.sumoselect.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/ucsf_common.js"></script>
 
