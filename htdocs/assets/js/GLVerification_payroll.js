@@ -1,5 +1,6 @@
 var GLVerification_payroll_Management = function () {
     var self = this;
+    var isAjaxing = false;
 
     $(document).ready(function(){
         /***** DEPTID: finishes typing instead of on key up *****/
@@ -895,7 +896,10 @@ var GLVerification_payroll_Management = function () {
             }
         }
          $('#exportPayroll').click(function() {
+            if(isAjaxing) return;
+            isAjaxing = true;
            ShowBusy();
+
             $.ajax({ url: base_url + '/glverification/export_payroll_expense',
                 data: {
                     "emp_name": empName, 
@@ -912,6 +916,7 @@ var GLVerification_payroll_Management = function () {
 
                 }
             }).done(function(data){
+                isAjaxing = false;
                 var $a = $("<a>");
                 $a.attr("href",data.file);
                 $("body").append($a);
@@ -922,6 +927,8 @@ var GLVerification_payroll_Management = function () {
         });
 
          $('#exportPayrollChanged').click(function() {
+            if(isAjaxing) return;
+            isAjaxing = true;
            ShowBusy();
             $.ajax({ url: base_url + '/glverification/export_payroll_expense',
                 data: {
@@ -938,6 +945,7 @@ var GLVerification_payroll_Management = function () {
                     HideBusy();
                 }
             }).done(function(data){
+                isAjaxing = false;                
                 var $a = $("<a>");
                 $a.attr("href",data.file);
                 $("body").append($a);

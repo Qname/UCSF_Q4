@@ -4,6 +4,7 @@ var glv_filter = new  GLVerification_filter_management();
 //GL Verification
 var GLVerificationManagement = function () {
     var self = this;
+    var isAjaxing = false;
 
     //function init
     self.init_glverification = function () {
@@ -672,6 +673,9 @@ self.getMonthlyTrendPercent();
         };
 
          $('#exportTransaction').click(function() {
+
+            if(isAjaxing) return;
+            isAjaxing = true;
            ShowBusy();
             $.ajax({ url: base_url + '/glverification/exportTransaction',
                 data: {"recongouptitle" : $ReconGroupTitle,"listHeader" : listHeader},
@@ -684,6 +688,7 @@ self.getMonthlyTrendPercent();
                     HideBusy();
                 }
             }).done(function(data){
+                isAjaxing = false;
                 var $a = $("<a>");
                 $a.attr("href",data.file);
                 $("body").append($a);
@@ -1559,6 +1564,9 @@ self.getMonthlyTrendPercent();
         };
 
         $('#exportGLVItemDetails').click(function() {
+
+            if(isAjaxing) return;
+            isAjaxing = true;
            ShowBusy();
             $.ajax({ 
                 url: base_url + '/glverification/exportGLVItemDetails',
@@ -1580,6 +1588,7 @@ self.getMonthlyTrendPercent();
                     HideBusy();
                 }
             }).done(function(data){
+                isAjaxing = false;
                 var $a = $("<a>");
                 $a.attr("href",data.file);
                 $("body").append($a);
