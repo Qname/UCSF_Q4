@@ -1,6 +1,6 @@
 USE [GLVData]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_SOM_GLV_Summary_AARolling]    Script Date: 1/25/2018 2:54:54 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_SOM_GLV_Summary_AARolling]    Script Date: 10/19/2018 2:20:25 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -601,22 +601,37 @@ BEGIN
 			where SessionUserid=@vSessionUserid 
 				and ReconStatusCd in (0) and RecType='RegPay'
 
-		-- Add amounts to payroll dashboard line 
+		-- Add amounts not verified to payroll dashboard line 
 		if ( @vCnt>0 and @vAmt is not null )
 			begin
 		update SOM_AA_Dashboard 
 			set StatusAmt0=StatusAmt0+@vAmt, StatusCnt0=StatusCnt0+@vCnt 
 			where SessionUserid=@vSessionUserid and ReconGroupTitle='Payroll' 
 			end
+		
+		-- Get pending payroll amounts and counts 
+		declare @vAmt1 as money, @vCnt1 as money
+		select @vCnt1=count(*), @vAmt1=sum(M01) 
+			from SOM_AA_EmployeeListRolling 
+			where SessionUserid=@vSessionUserid 
+				and ReconStatusCd in (1000) and RecType='RegPay'
 
-		-- Get not verified payroll amounts and counts 
+		-- Add amounts pending to payroll dashboard line 
+		if ( @vCnt1 >0 and @vAmt1 IS NOT NULL )
+			begin 
+			update SOM_AA_Dashboard 
+				set StatusAmt1=StatusAmt1+@vAmt1, StatusCnt1=StatusCnt1+@vCnt1 
+				where SessionUserid=@vSessionUserid and ReconGroupTitle='Payroll' 
+			end 
+
+		-- Get completed payroll amounts and counts 
 		declare @vAmt3 as money, @vCnt3 as money
 		select @vCnt3=count(*), @vAmt3=sum(M01) 
 			from SOM_AA_EmployeeListRolling 
 			where SessionUserid=@vSessionUserid 
-				and ReconStatusCd in (1000,3000) and RecType='RegPay'
+				and ReconStatusCd in (3000) and RecType='RegPay'
 
-		-- Add amounts to payroll dashboard line 
+		-- Add amounts completed to payroll dashboard line 
 		if ( @vCnt3 >0 and @vAmt3 IS NOT NULL )
 			begin 
 			update SOM_AA_Dashboard 
@@ -625,5 +640,8 @@ BEGIN
 			end 
 
 		end 
+
+		
+		 
 
 end
