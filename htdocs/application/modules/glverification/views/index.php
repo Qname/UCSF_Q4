@@ -175,7 +175,7 @@
                         <input type="radio" id="rdoshowdollar" name="rdotransactionshowcountdollar" value="Dollars"/><label for='rdoshowdollar'>Show Dollars</label><br>
                         <input type="radio" id="rdoshowcount" name="rdotransactionshowcountdollar" value="Count"/><label for='rdoshowcount'>Show Count</label>
                     </div>
-                    <a class="pull-right btn btn-primary btn-xs" id="exportTransaction" ><i class="fa fa-file-excel-o"></i> Export Data</a>
+                    <button class="pull-right btn3d btn-blue btn-c" id="exportTransaction" ><i class="fa fa-file-excel-o"></i> Export Data</button>
                     <table id="dt_transaction" class="table table-striped table-bordered table-hover dataTable no-footer" width="2500px">
                         <thead>
                             <tr>
@@ -328,8 +328,8 @@
                                
                             </div>
                             <div class="mt-5 mag-b-40">
-                                   <a class="pull-right btn btn-primary btn-xs" id="exportPayroll" ><i class="fa fa-file-excel-o"></i> Export All Data</a>
-                                     <a class="pull-right btn btn-primary btn-xs mr-5" id="exportPayrollChanged" ><i class="fa fa-file-excel-o"></i> Export Chg Data</a>
+                                   <button class="pull-right btn3d btn-blue btn-c" id="exportPayroll" ><i class="fa fa-file-excel-o"></i> Export All Data</button>
+                                     <button class="pull-right btn3d btn-blue btn-c mr-5" id="exportPayrollChanged" ><i class="fa fa-file-excel-o"></i> Export Chg Data</button>
                                </div>
                            
                             <table id="dt_payroll_expense_detail" class="table table-striped table-bordered table-hover dataTable no-footer" width="2500px">
@@ -604,7 +604,7 @@
                     </div>
                 </div>
                 -->
-                <a class="pull-right btn btn-primary btn-xs mag-r-12 mb-5" id="exportGLVItemDetails" ><i class="fa fa-file-excel-o"></i> Export Data</a>
+                <button class="pull-right btn3d btn-blue btn-c mag-r-12 mb-5" id="exportGLVItemDetails" ><i class="fa fa-file-excel-o"></i> Export Data</button>
                 <div class="col-lg-12">
                     <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-0" data-widget-editbutton="false" role="widget" style="margin-bottom: 0;">
                     <!-- widget options:
