@@ -1529,10 +1529,8 @@ self.getMonthlyTrendPercent();
             success: function(data) {
              if(data>0){
                 $( "#commentMonthly" ).removeClass( "glyphicon-plus-sign" ).addClass( "glyphicon-comment" );
-                $( "#textCommentMonthly" ).html('Show');
             }else{
                 $( "#commentMonthly" ).removeClass( "glyphicon-comment" ).addClass( "glyphicon-plus-sign" );
-                $( "#textCommentMonthly" ).html('Add');
             }
         },
         error: function (request, status, error) {

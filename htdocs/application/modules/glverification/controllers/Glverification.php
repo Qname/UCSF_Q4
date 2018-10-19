@@ -1496,7 +1496,7 @@ return $approve;
         $glvType =  $this->test_input($_POST['glvType']);
         //if $document_glvTypeId = '' then no existing document
         $document_glvTypeId = $this->test_input($_POST['document_glvtypeid']);
-
+        $size_setting = $this->test_input($_POST['currentSizeupload']);
         $config["upload_path"] = UPLOAD_PATH.$glvType.'/'.$uniqueid.'/' ;
         if (!file_exists( $config["upload_path"])) {
             mkdir( $config["upload_path"], 0777, true);
@@ -1504,7 +1504,7 @@ return $approve;
         $config["allowed_types"] = ALLOW_UPLOAD_FILETYPE;
         $config['max_filename'] = '255';
         $config['encrypt_name'] = FALSE;
-        $config['max_size'] = '1024'; //1 MB
+        $config['max_size'] = ''.(1024 * $size_setting); //1 MB
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
         $filesStr = "";

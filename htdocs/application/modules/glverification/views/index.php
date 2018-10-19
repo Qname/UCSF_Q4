@@ -374,19 +374,13 @@
                         <div>
                             <button type="button" disabled style="width:100px;margin-bottom:10px;" id="monthlyTrendDropBtn">Save</button>
                         </div>
-                        <div id="commentMonthlyTrend">
-                            <div class="col-xs-1 no-padding-left">
-                                <i class=" glyphicon gi-2x">Comments:</i> &nbsp;&nbsp;
-
+                        <div id="commentMonthlyTrend" style="margin-bottom: 5px;">
+                            <div class="col-xs-1 no-padding-left bgcolor-light-grey bd-lightgrey" style="text-align: center;padding-top: 3px;padding-right: 0px;margin-right: -14px;">
+                                <label>Comments:</label>
+                            </div>                             
+                            <div class=" bgcolor-light-grey bd-lightgrey" style="width: 10%;" > 
+                                <span class="glyphicon  gi-2x" id="commentMonthly" ></span>
                             </div>
-                             
-                             <div class="col-xs-1" style="margin-top: -5px!important;">                                   
-                                        <span class="glyphicon  gi-3x ro " id="commentMonthly" ></span><br>
-                                        <span class="glyphicon-class" style="padding-left: 5px;" id="textCommentMonthly"></span> 
-                                     
-                             </div>
-                           
-                             
                         </div>
                         <div >
                             <iframe id="monthlyTrendUrl" src="" style="width:100%;height:900px; "></iframe>

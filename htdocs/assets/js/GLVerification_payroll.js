@@ -365,21 +365,24 @@ var GLVerification_payroll_Management = function () {
                 { "targets": [ 1 ], "class": "col50 size-12", "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) 
                     {
                         if(oData[4] !=null && oData[4] == $("#hidden_userid").html().toLowerCase()){
-                            $(nTd).empty();
-                            $(nTd).closest("td").addClass("cursor-pointer");
-                            $(nTd).html("<span class='cursor-pointer'>"+sData+"</span>");
-                            $(nTd).on('click', function (e) {
-                                $("#addEditCommentDiv").removeClass('display-none');
-                                $("#currentCommentDiv").html("Edit Comment");
-                                $("#addCommentBtn").addClass("display-none");
-                                $("#saveCommentBtn").removeClass("display-none");
-                                $("#saveCommentBtn").html("Save");
-                                $("#saveCommentBtn").attr("disabled", "disabled");
-                                $("#cancelCommentBtn").removeClass("display-none");
-                                $("#current_comment").val(sData);
-                                $("#current_comment").focus();
-                                $("#currentCommentId").val(oData[0]);
-                            });
+                            
+                             if($("#comment_Type").val() != "MonthlyTrend"){
+                                $(nTd).empty();
+                                $(nTd).closest("td").addClass("cursor-pointer");
+                                $(nTd).html("<span class='cursor-pointer'>"+sData+"</span>");  
+                                $(nTd).on('click', function (e) {
+                                    $("#addEditCommentDiv").removeClass('display-none');
+                                    $("#currentCommentDiv").html("Edit Comment");
+                                    $("#addCommentBtn").addClass("display-none");
+                                    $("#saveCommentBtn").removeClass("display-none");
+                                    $("#saveCommentBtn").html("Save");
+                                    $("#saveCommentBtn").attr("disabled", "disabled");
+                                    $("#cancelCommentBtn").removeClass("display-none");
+                                    $("#current_comment").val(sData);
+                                    $("#current_comment").focus();
+                                    $("#currentCommentId").val(oData[0]);
+                                });
+                            }
                         }
                     } 
                 },
@@ -536,6 +539,7 @@ var GLVerification_payroll_Management = function () {
                   method: 'POST',
                   success: function (data) {
                     currentSizeupload = data;
+                     form_data.append('currentSizeupload',currentSizeupload);
                   },
                   error: function (xhr) {
                     alert("Error");
