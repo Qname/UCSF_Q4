@@ -156,7 +156,7 @@ class Glverification_payroll_model extends CI_Model {
     /**
      * Get all expense detail data
      * */
-    public function get_all_expense_detail($userId, $start, $length,$columnName,$columnDir,$search_col,$search_val  )
+    public function get_all_expense_detail($userId, $start, $length,$columnName,$columnDir,$search_col,$search_val )
     {
             try {
                 $queryStr = "select uniqueid,PositionTitleCategory,Employee_Name,Employee_Id,RecType,
@@ -170,13 +170,26 @@ class Glverification_payroll_model extends CI_Model {
                     group by  Employee_Name,PositionTitleCategory
                     having count(Employee_Name) = 1
                 )";
-                if ($length != 0){
-                    $queryStr =  $queryStr ." ORDER BY ".$columnName." ".$columnDir." OFFSET  ? ROWS FETCH NEXT ? ROWS ONLY";
-                    $query = $this->db->query($queryStr,array($userId,$userId,(int)$start,(int)$length));
-                }else{
-                 $queryStr =  $queryStr ." ORDER BY ".$columnName." ".$columnDir;
-                 $query = $this->db->query($queryStr,array($userId,$userId));
-             }
+
+                if( $columnName == 'uniqueid'){
+                   if ($length != 0){
+                        $queryStr =  $queryStr ." ORDER BY PositionTitleCategory, Employee_Name, Sort1, Sort2, PositionTitleCd, DeptCd, FundCd, ProjectCd, FunctionCd, FlexCd OFFSET  ? ROWS FETCH NEXT ? ROWS ONLY";
+                        $query = $this->db->query($queryStr,array($userId,$userId,(int)$start,(int)$length));
+                    }else{
+                       $queryStr =  $queryStr ." ORDER BY PositionTitleCategory, Employee_Name, Sort1, Sort2, PositionTitleCd, DeptCd, FundCd, ProjectCd, FunctionCd, FlexCd ";
+                       $query = $this->db->query($queryStr,array($userId,$userId));
+                   }
+
+               }else{
+                       if ($length != 0){
+                        $queryStr =  $queryStr ." ORDER BY ".$columnName." ".$columnDir." OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+                        $query = $this->db->query($queryStr,array($userId,$userId,(int)$start,(int)$length));
+                    }else{
+                       $queryStr =  $queryStr ." ORDER BY ".$columnName." ".$columnDir;
+                       $query = $this->db->query($queryStr,array($userId,$userId));
+                   }
+
+               }
 
              log_message('info',"get_all_expense_detail SQL= " . $this->db->last_query());            
              return $query->result();     
