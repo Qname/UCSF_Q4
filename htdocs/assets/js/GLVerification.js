@@ -755,14 +755,14 @@ self.getMonthlyTrendPercent();
                if($ReconGroupTitle=== undefined){
                 $ReconGroupTitle = "Total";
                }
-                $("#recongrouptitle_data").val($ReconGroupTitle);
+                $("#recongrouptitle_data_transactionItem").val($ReconGroupTitle);
                  $('#exportTransaction').click(function() {
 
                         if(isAjaxing) return;
                         isAjaxing = true;
                        ShowBusy();
                         $.ajax({ url: base_url + '/glverification/exportTransaction',
-                            data: {"recongouptitle" : $("#recongrouptitle_data").val(),"listHeader" : listHeader},
+                            data: {"recongouptitle" : $("#recongrouptitle_data_transactionItem").val(),"listHeader" : listHeader},
                             type: 'POST',
                             dataType: "json",
                             success: function(data) {

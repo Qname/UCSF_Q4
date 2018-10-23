@@ -216,6 +216,7 @@
                             <div class="display-none" id="reconstatuscd_data"></div>
                             <div class="display-none" id="recongrouptitle_data"></div>
                             <div class="display-none" id="priormonth_data"></div>
+                            <div class="display-none" id="recongrouptitle_data_transactionItem"></div>
                         </div>
                     </div>
                     <div class="tab-pane" id="hr2">

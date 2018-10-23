@@ -731,7 +731,7 @@ return $approve;
         $objPHPExcel->getActiveSheet()->SetCellValue('X1', 'Invoice');
         $objPHPExcel->getActiveSheet()->SetCellValue('Y1', 'Voucher');
         $objPHPExcel->getActiveSheet()->SetCellValue('Z1', 'Invoice Date');                    
-        $objPHPExcel->getActiveSheet()->SetCellValue('AA1', 'Invoice Req Dept');
+        $objPHPExcel->getActiveSheet()->SetCellValue('AA1', 'Invoice Req Date');
         $objPHPExcel->getActiveSheet()->SetCellValue('AB1','Vendor Name');                
         $objPHPExcel->getActiveSheet()->SetCellValue('AC1','Vendor No');                 
         // set Row
