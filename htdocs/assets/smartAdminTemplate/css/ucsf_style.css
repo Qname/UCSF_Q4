@@ -16,7 +16,7 @@ button[disabled] {
   color: #666666;
   cursor: not-allowed;
 }
-.bgcolor-light-pink{background-color: #F2D1CA;}
+.bgcolor-light-pink{background-color: #f7a3b6;}
 .bgcolor-light-yellow{background-color:#fff199;}
 .bgcolor-light-green{background-color:#d3e4ad;}
 .bgcolor-dark-grey{background-color:#dfe0e0;}
@@ -434,7 +434,7 @@ h1.front-header {
     color: #ff0000;
 }
 .bg-red {
-    background-color: #fbcca7;
+    background-color: #f7a3b6;
 }
 .bg-grey {
     background-color: #ebe9e9 !important;

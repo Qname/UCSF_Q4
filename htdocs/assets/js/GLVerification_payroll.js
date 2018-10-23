@@ -899,65 +899,7 @@ var GLVerification_payroll_Management = function () {
                 $("#exp_" + (index + 1)).text(listHeader[index]);
             }
         }
-         $('#exportPayroll').click(function() {
-            if(isAjaxing) return;
-            isAjaxing = true;
-           ShowBusy();
-
-            $.ajax({ url: base_url + '/glverification/export_payroll_expense',
-                data: {
-                    "emp_name": empName, 
-                    "changedEmp":"false",
-                    "listHeader" : listHeader
-                     },
-                type: 'POST',
-                dataType: "json",
-                success: function(data) {
-                    HideBusy();
-                },
-                error: function (request, status, error) {
-                    HideBusy();
-
-                }
-            }).done(function(data){
-                isAjaxing = false;
-                var $a = $("<a>");
-                $a.attr("href",data.file);
-                $("body").append($a);
-                $a.attr("download","PayrollData"+$.now()+".xlsx");
-                $a[0].click();
-                $a.remove();
-            });
-        });
-
-         $('#exportPayrollChanged').click(function() {
-            if(isAjaxing) return;
-            isAjaxing = true;
-           ShowBusy();
-            $.ajax({ url: base_url + '/glverification/export_payroll_expense',
-                data: {
-                    "emp_name": empName, 
-                    "changedEmp":"true",
-                    "listHeader" : listHeader
-                },
-                type: 'POST',
-                dataType: "json",
-                success: function(data) {
-                    HideBusy();
-                },
-                error: function (request, status, error) {
-                    HideBusy();
-                }
-            }).done(function(data){
-                isAjaxing = false;                
-                var $a = $("<a>");
-                $a.attr("href",data.file);
-                $("body").append($a);
-                $a.attr("download","PayrollChangedData"+$.now()+".xlsx");
-                $a[0].click();
-                $a.remove();
-            });
-        });
+        
 
 
         $('#dt_payroll_expense_detail').DataTable().clear().destroy();
@@ -994,6 +936,70 @@ var GLVerification_payroll_Management = function () {
                 if ( data[3] == "Total" ) {
                     $(row).addClass('bg-grey');
                 }
+            },
+            "fnInitComplete": function(oSettings, json) {
+                
+              $("#empName_data").val(empName);
+               $('#exportPayroll').click(function() {
+                    if(isAjaxing) return;
+                    isAjaxing = true;
+                   ShowBusy();
+
+                    $.ajax({ url: base_url + '/glverification/export_payroll_expense',
+                        data: {
+                            "emp_name": $("#empName_data").val(), 
+                            "changedEmp":"false",
+                            "listHeader" : listHeader
+                             },
+                        type: 'POST',
+                        dataType: "json",
+                        success: function(data) {
+                            HideBusy();
+                        },
+                        error: function (request, status, error) {
+                            HideBusy();
+
+                        }
+                    }).done(function(data){
+                        isAjaxing = false;
+                        var $a = $("<a>");
+                        $a.attr("href",data.file);
+                        $("body").append($a);
+                        $a.attr("download","PayrollData"+$.now()+".xlsx");
+                        $a[0].click();
+                        $a.remove();
+                    });
+                });
+
+                 $('#exportPayrollChanged').click(function() {
+                    if(isAjaxing) return;
+                    isAjaxing = true;
+                   ShowBusy();
+                    $.ajax({ url: base_url + '/glverification/export_payroll_expense',
+                        data: {
+                            "emp_name": $("#empName_data").val(), 
+                            "changedEmp":"true",
+                            "listHeader" : listHeader
+                        },
+                        type: 'POST',
+                        dataType: "json",
+                        success: function(data) {
+                            HideBusy();
+                        },
+                        error: function (request, status, error) {
+                            HideBusy();
+                        }
+                    }).done(function(data){
+                        isAjaxing = false;                
+                        var $a = $("<a>");
+                        $a.attr("href",data.file);
+                        $("body").append($a);
+                        $a.attr("download","PayrollChangedData"+$.now()+".xlsx");
+                        $a[0].click();
+                        $a.remove();
+                    });
+                });
+                 
             },
             //Set column definition initialisation properties.
             "columnDefs": [

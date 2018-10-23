@@ -214,18 +214,18 @@ class Glverification extends MY_Controller {
         foreach ($transactionInfo as $transactions) {
             $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $transactions->ReconGroupTitle);
             $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $transactions->ReconItemTitle);
-            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $transactions->NotVerified);
-            $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $transactions->Pending);
-            $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $transactions->Complete);
-            $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $transactions->AutoComplete);
-            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $transactions->PriorNotVerified);
-            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $transactions->PriorPending);
-            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $transactions->NotVerifiedCount);
-            $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $transactions->PendingCount);
-            $objPHPExcel->getActiveSheet()->SetCellValue('K' . $rowCount, $transactions->CompleteCount);
-            $objPHPExcel->getActiveSheet()->SetCellValue('L' . $rowCount, $transactions->AutoCompleteCount);
-            $objPHPExcel->getActiveSheet()->SetCellValue('M' . $rowCount, $transactions->PriorNotVerifiedCount);
-            $objPHPExcel->getActiveSheet()->SetCellValue('N' . $rowCount, $transactions->PriorPendingCount);
+            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $transactions->NotVerifiedCount==0?'':$transactions->NotVerified);
+            $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $transactions->PendingCount==0?'':$transactions->Pending);
+            $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $transactions->CompleteCount==0?'':$transactions->Complete);
+            $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $transactions->AutoCompleteCount==0?'':$transactions->AutoComplete);
+            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $transactions->PriorNotVerifiedCount==0?'':$transactions->PriorNotVerified);
+            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $transactions->PriorPendingCount==0?'':$transactions->PriorPending);
+            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $transactions->NotVerifiedCount==0?'':$transactions->NotVerifiedCount);
+            $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $transactions->PendingCount==0?'':$transactions->PendingCount);
+            $objPHPExcel->getActiveSheet()->SetCellValue('K' . $rowCount, $transactions->CompleteCount==0?'':$transactions->CompleteCount);
+            $objPHPExcel->getActiveSheet()->SetCellValue('L' . $rowCount, $transactions->AutoCompleteCount==0?'':$transactions->AutoCompleteCount);
+            $objPHPExcel->getActiveSheet()->SetCellValue('M' . $rowCount, $transactions->PriorNotVerifiedCount==0?'':$transactions->PriorNotVerifiedCount);
+            $objPHPExcel->getActiveSheet()->SetCellValue('N' . $rowCount, $transactions->PriorPendingCount==0?'':$transactions->PriorPendingCount);
             $objPHPExcel->getActiveSheet()->SetCellValue('O' . $rowCount, $transactions->AmtM01x);
             $objPHPExcel->getActiveSheet()->SetCellValue('P' . $rowCount, $transactions->AmtM02x);
             $objPHPExcel->getActiveSheet()->SetCellValue('Q' . $rowCount, $transactions->AmtM03x);
@@ -701,70 +701,88 @@ return $approve;
         // load excel library
         $this->load->library('excel');
         $objPHPExcel = new PHPExcel();
+        
         $objPHPExcel->setActiveSheetIndex(0);  
 
         // set Header
-        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'BU');
-        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Dept ID');
-        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Fund');
-        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Project');
-        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Funct');
-        $objPHPExcel->getActiveSheet()->SetCellValue('F1', 'Account');
-        $objPHPExcel->getActiveSheet()->SetCellValue('G1', 'Actvy');
-        $objPHPExcel->getActiveSheet()->SetCellValue('H1', 'Flex');
-        $objPHPExcel->getActiveSheet()->SetCellValue('I1', 'Amount');
-        $objPHPExcel->getActiveSheet()->SetCellValue('J1', 'Verification Status');
-        $objPHPExcel->getActiveSheet()->SetCellValue('K1', 'Verification Comments');
-        $objPHPExcel->getActiveSheet()->SetCellValue('L1', 'Jrnl ID');
-        $objPHPExcel->getActiveSheet()->SetCellValue('M1', 'Jrnl Post Dt');   
-        $objPHPExcel->getActiveSheet()->SetCellValue('N1', 'Reference');
-        $objPHPExcel->getActiveSheet()->SetCellValue('O1', 'Jrnl Line Desc');
-        $objPHPExcel->getActiveSheet()->SetCellValue('P1', 'Jrnl Desc');
-        $objPHPExcel->getActiveSheet()->SetCellValue('Q1', 'Jrnl Opr Desc');
-        $objPHPExcel->getActiveSheet()->SetCellValue('R1', 'GLV Assign Description');
-        $objPHPExcel->getActiveSheet()->SetCellValue('S1', 'Account Title');
-        $objPHPExcel->getActiveSheet()->SetCellValue('T1', 'Verifier');       
-        $objPHPExcel->getActiveSheet()->SetCellValue('U1', 'Verification Date');
-        $objPHPExcel->getActiveSheet()->SetCellValue('V1', 'Attachments');
+        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Verification Status');
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Verification Comments');
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Attachment');
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'GLV assign Description');
+        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Verifier');
+        $objPHPExcel->getActiveSheet()->SetCellValue('F1', 'Verification Date');
+        $objPHPExcel->getActiveSheet()->SetCellValue('G1', 'Business Unit');
+        $objPHPExcel->getActiveSheet()->SetCellValue('H1', 'Account');
+        $objPHPExcel->getActiveSheet()->SetCellValue('I1', 'Account Description');
+        $objPHPExcel->getActiveSheet()->SetCellValue('J1', 'Fund');
+        $objPHPExcel->getActiveSheet()->SetCellValue('K1', 'Dept ID');
+        $objPHPExcel->getActiveSheet()->SetCellValue('L1', 'Project ID');
+        $objPHPExcel->getActiveSheet()->SetCellValue('M1', 'Activity Period');   
+        $objPHPExcel->getActiveSheet()->SetCellValue('N1', 'Function');
+        $objPHPExcel->getActiveSheet()->SetCellValue('O1', 'Flex');
+        $objPHPExcel->getActiveSheet()->SetCellValue('P1', 'Reference');
+        $objPHPExcel->getActiveSheet()->SetCellValue('Q1', 'Amount');
+        $objPHPExcel->getActiveSheet()->SetCellValue('R1', 'Journal ID');
+        $objPHPExcel->getActiveSheet()->SetCellValue('S1', 'Jrnl Post Dt');
+        $objPHPExcel->getActiveSheet()->SetCellValue('T1', 'Jrnl Opr Desc');       
+        $objPHPExcel->getActiveSheet()->SetCellValue('U1', 'Journal Description');
+        $objPHPExcel->getActiveSheet()->SetCellValue('V1', 'Journal Line Description');
         $objPHPExcel->getActiveSheet()->SetCellValue('W1', 'PO');       
         $objPHPExcel->getActiveSheet()->SetCellValue('X1', 'Invoice');
         $objPHPExcel->getActiveSheet()->SetCellValue('Y1', 'Voucher');
         $objPHPExcel->getActiveSheet()->SetCellValue('Z1', 'Invoice Date');                    
         $objPHPExcel->getActiveSheet()->SetCellValue('AA1', 'Invoice Req Dept');
         $objPHPExcel->getActiveSheet()->SetCellValue('AB1','Vendor Name');                
-        $objPHPExcel->getActiveSheet()->SetCellValue('AC1','Vendor No');                
+        $objPHPExcel->getActiveSheet()->SetCellValue('AC1','Vendor No');                 
         // set Row
         $rowCount = 2;
         foreach ($list as $item) {
-            $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $item->BusinessUnitCd);
-            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $item->DeptCd);
-            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $item->FundCd);
-            $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $item->ProjectCd);
-            $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $item->FunctionCd);
-            $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $item->AccountCd);
-            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $item->ActivityCd);
-            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $item->FlexCd);
-            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $item->Amount);
-            $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $item->ReconStatusCd);
-            $objPHPExcel->getActiveSheet()->SetCellValue('K' . $rowCount, '');
-            $objPHPExcel->getActiveSheet()->SetCellValue('L' . $rowCount, $item->JournalId);
-            $objPHPExcel->getActiveSheet()->SetCellValue('M' . $rowCount, $item->JournalPostDt);
-            $objPHPExcel->getActiveSheet()->SetCellValue('N' . $rowCount, $item->JournalLineRef);
-            $objPHPExcel->getActiveSheet()->SetCellValue('O' . $rowCount, $item->JournalLineDesc);
-            $objPHPExcel->getActiveSheet()->SetCellValue('P' . $rowCount, $item->JournalTitle);
-            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . $rowCount, $item->JournalOprDesc);
-            $objPHPExcel->getActiveSheet()->SetCellValue('R' . $rowCount, $item->ReconAssignDesc);
-            $objPHPExcel->getActiveSheet()->SetCellValue('S' . $rowCount, $item->AccountTitleCd);
-            $objPHPExcel->getActiveSheet()->SetCellValue('T' . $rowCount, $item->user_name);
-            $objPHPExcel->getActiveSheet()->SetCellValue('U' . $rowCount, $item->ReconDate);
-            $objPHPExcel->getActiveSheet()->SetCellValue('V' . $rowCount, '');
-            $objPHPExcel->getActiveSheet()->SetCellValue('W' . $rowCount, $item->InvoicePO);
-            $objPHPExcel->getActiveSheet()->SetCellValue('X' . $rowCount, $item->InvoiceId);
-            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . $rowCount, $item->InvoiceVoucherId);
-            $objPHPExcel->getActiveSheet()->SetCellValue('Z' . $rowCount, $item->InvoiceDate);
+           
+
+             switch ($item->ReconStatusCd) {
+                   case 0:
+                         $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, 'Not Verified'); 
+                         break;
+                   case 1000:
+                         $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, 'Pending'); 
+                         break;
+                   case 2000:
+                         $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, 'Auto Complete'); 
+                         break;                         
+                   case 3000:
+                         $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, 'Complete'); 
+                         break;
+                }
+           
+           // $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $item->ReconStatusCd);                
+            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, '');                      
+            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, '');                      
+            $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $item->ReconAssignDesc);  
+            $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $item->user_name);        
+            $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $item->ReconDate);        
+            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $item->BusinessUnitCd);   
+            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $item->AccountCd);        
+            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $item->AccountTitleCd);   
+            $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $item->FundCd);           
+            $objPHPExcel->getActiveSheet()->SetCellValue('K' . $rowCount, $item->DeptCd);           
+            $objPHPExcel->getActiveSheet()->SetCellValue('L' . $rowCount, $item->ProjectCd);        
+            $objPHPExcel->getActiveSheet()->SetCellValue('M' . $rowCount, $item->ActivityCd);       
+            $objPHPExcel->getActiveSheet()->SetCellValue('N' . $rowCount, $item->FunctionCd);       
+            $objPHPExcel->getActiveSheet()->SetCellValue('O' . $rowCount, $item->FlexCd);           
+            $objPHPExcel->getActiveSheet()->SetCellValue('P' . $rowCount, $item->JournalLineRef);   
+            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . $rowCount, $item->Amount);           
+            $objPHPExcel->getActiveSheet()->SetCellValue('R' . $rowCount, $item->JournalId);        
+            $objPHPExcel->getActiveSheet()->SetCellValue('S' . $rowCount, $item->JournalPostDt);    
+            $objPHPExcel->getActiveSheet()->SetCellValue('T' . $rowCount, $item->JournalOprDesc);   
+            $objPHPExcel->getActiveSheet()->SetCellValue('U' . $rowCount, $item->JournalTitle);     
+            $objPHPExcel->getActiveSheet()->SetCellValue('V' . $rowCount, $item->JournalLineDesc);  
+            $objPHPExcel->getActiveSheet()->SetCellValue('W' . $rowCount, $item->InvoicePO);        
+            $objPHPExcel->getActiveSheet()->SetCellValue('X' . $rowCount, $item->InvoiceId);        
+            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . $rowCount, $item->InvoiceVoucherId); 
+            $objPHPExcel->getActiveSheet()->SetCellValue('Z' . $rowCount, $item->InvoiceDate);      
             $objPHPExcel->getActiveSheet()->SetCellValue('AA' . $rowCount, $item->InvoiceReqDeptCd);
             $objPHPExcel->getActiveSheet()->SetCellValue('AB' . $rowCount, $item->InvoiceVendorName);
-            $objPHPExcel->getActiveSheet()->SetCellValue('AC' . $rowCount, $item->InvoiceVendorCd);
+            $objPHPExcel->getActiveSheet()->SetCellValue('AC' . $rowCount, $item->InvoiceVendorCd);            
             $rowCount++;
         } 
 

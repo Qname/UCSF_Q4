@@ -482,16 +482,16 @@ var GLVerificationManagement = function () {
 {   "targets": [ 3 ], "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
     /** Old UI
     if (oData[4]===0 || oData[1]===100){
-        $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:100%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span style="width:0%;background-color:#fbcca7;line-height: 20px;display: inline-block;" >&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">100%</div>');
+        $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:100%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span style="width:0%;background-color:#f7a3b6;line-height: 20px;display: inline-block;" >&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">100%</div>');
     }else {
         if(oData[1]===0){
-            $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + oData[1] + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span  style="width:' + oData[2] + '%;background-color:#fbcca7;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + oData[1] + '%</div>');
+            $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + oData[1] + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span  style="width:' + oData[2] + '%;background-color:#f7a3b6;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + oData[1] + '%</div>');
 
         }else{
             if (oData[10]>0){
-                $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + oData[1] + '%;background:linear-gradient(to right,  #6ea400 ' + oData[1] + '%,  #FFDD00 ' + (100-oData[1])+ '%);line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -2px -1px -1px;">&nbsp;</span><span  style="width:' + oData[2] + '%;background-color:#fbcca7;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 2px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + oData[1] + '%</div>');
+                $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + oData[1] + '%;background:linear-gradient(to right,  #6ea400 ' + oData[1] + '%,  #FFDD00 ' + (100-oData[1])+ '%);line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -2px -1px -1px;">&nbsp;</span><span  style="width:' + oData[2] + '%;background-color:#f7a3b6;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 2px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + oData[1] + '%</div>');
              } else{
-            $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + oData[1] + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -2px -1px -1px;">&nbsp;</span><span  style="width:' + oData[2] + '%;background-color:#fbcca7;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 2px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + oData[1] + '%</div>');
+            $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + oData[1] + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -2px -1px -1px;">&nbsp;</span><span  style="width:' + oData[2] + '%;background-color:#f7a3b6;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 2px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + oData[1] + '%</div>');
             }
 
         }
@@ -537,26 +537,26 @@ var GLVerificationManagement = function () {
    
 
      if (percentCompleted===100){
-        $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:100%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span style="width:0%;background-color:#fbcca7;line-height: 20px;display: inline-block;" >&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">100%</div>');
+        $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:100%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span style="width:0%;background-color:#f7a3b6;line-height: 20px;display: inline-block;" >&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">100%</div>');
     }else if (percentPending===100){
-        $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:100%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span style="width:0%;background-color:#fbcca7;line-height: 20px;display: inline-block;" >&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">100%</div>');
+        $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:100%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span style="width:0%;background-color:#f7a3b6;line-height: 20px;display: inline-block;" >&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">100%</div>');
     }else  if (percentNotverified===100){
     
-        $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:0%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span  style="width:100%;background-color:#fbcca7;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">0%</div>');
+        $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:0%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span><span  style="width:100%;background-color:#f7a3b6;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">0%</div>');
 
     }else if (oData[10]>0)   {
             if (percentCompleted>0){
-                    $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + percentCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -1px -1px -1px;">&nbsp;</span><span  style="width:' + percentPending + '%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 1px;border-left:none;border-right:none;">&nbsp;</span><span  style="width:' + percentNotverified+ '%;background-color:#fbcca7;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 0px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
+                    $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + percentCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -1px -1px -1px;">&nbsp;</span><span  style="width:' + percentPending + '%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 1px;border-left:none;border-right:none;">&nbsp;</span><span  style="width:' + percentNotverified+ '%;background-color:#f7a3b6;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 0px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
                  } else{
-                    $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + percentCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: 0px;margin:-1px -1px -1px -1px;">&nbsp;</span><span  style="width:' + percentPending + '%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 1px;border-right:none;">&nbsp;</span><span  style="width:' + percentNotverified+ '%;background-color:#fbcca7;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 0px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
+                    $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + percentCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: 0px;margin:-1px -1px -1px -1px;">&nbsp;</span><span  style="width:' + percentPending + '%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 1px;border-right:none;">&nbsp;</span><span  style="width:' + percentNotverified+ '%;background-color:#f7a3b6;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 0px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
                 }
 
                 if(percentNotverified===0){
-                    $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + percentCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -1px -1px -1px;">&nbsp;</span><span  style="width:' + percentPending + '%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 1px;border-left:none;">&nbsp;</span><span  style="width:' + percentNotverified+ '%;background-color:#fbcca7;line-height: 20px;display: inline-block;margin:-1px 0px -1px 0px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
+                    $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + percentCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -1px -1px -1px;">&nbsp;</span><span  style="width:' + percentPending + '%;background-color:#FFDD00;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 1px;border-left:none;">&nbsp;</span><span  style="width:' + percentNotverified+ '%;background-color:#f7a3b6;line-height: 20px;display: inline-block;margin:-1px 0px -1px 0px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
 
                 }
     }else {
-                $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + totalCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -2px -1px -1px;border-right: none;">&nbsp;</span><span  style="width:' + percentNotverified + '%;background-color:#fbcca7;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 2px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
+                $(nTd).html('<div style="width:85%;border-right: none;line-height:20px;" class="display-inline bd-darkgray"><span  style="width:' + totalCompleted + '%;background-color:#6ea400;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px -2px -1px -1px;border-right: none;">&nbsp;</span><span  style="width:' + percentNotverified + '%;background-color:#f7a3b6;line-height: 20px;display: inline-block;border: gray 1px solid;margin:-1px 0px -1px 2px;">&nbsp;</span> </div><div style="width:15%;border:1px solid gray;line-height: 20px;border-left: none; padding-right:5px;" class="display-inline text-right bg-color-white">' + totalCompleted + '%</div>');
 
     }
 }
@@ -672,31 +672,7 @@ self.getMonthlyTrendPercent();
             phone : 480
         };
 
-         $('#exportTransaction').click(function() {
-
-            if(isAjaxing) return;
-            isAjaxing = true;
-           ShowBusy();
-            $.ajax({ url: base_url + '/glverification/exportTransaction',
-                data: {"recongouptitle" : $ReconGroupTitle,"listHeader" : listHeader},
-                type: 'POST',
-                dataType: "json",
-                success: function(data) {
-                    HideBusy();
-                },
-                error: function (request, status, error) {
-                    HideBusy();
-                }
-            }).done(function(data){
-                isAjaxing = false;
-                var $a = $("<a>");
-                $a.attr("href",data.file);
-                $("body").append($a);
-                $a.attr("download","TransactionData"+$.now()+".xlsx");
-                $a[0].click();
-                $a.remove();
-            });
-        });
+        
 
 
         //Load Transaction table
@@ -773,6 +749,39 @@ self.getMonthlyTrendPercent();
             "drawCallback" : function(oSettings) {
                 responsiveHelper_dt_transaction.respond();
                 $("#dt_transaction_paginate").hide();
+            },
+            "fnInitComplete": function(oSettings, json) {
+                //oSettings.fnDrawCallback = alert('redraw');
+               if($ReconGroupTitle=== undefined){
+                $ReconGroupTitle = "Total";
+               }
+                $("#recongrouptitle_data").val($ReconGroupTitle);
+                 $('#exportTransaction').click(function() {
+
+                        if(isAjaxing) return;
+                        isAjaxing = true;
+                       ShowBusy();
+                        $.ajax({ url: base_url + '/glverification/exportTransaction',
+                            data: {"recongouptitle" : $("#recongrouptitle_data").val(),"listHeader" : listHeader},
+                            type: 'POST',
+                            dataType: "json",
+                            success: function(data) {
+                                HideBusy();
+                            },
+                            error: function (request, status, error) {
+                                HideBusy();
+                            }
+                        }).done(function(data){
+                            isAjaxing = false;
+                            var $a = $("<a>");
+                            $a.attr("href",data.file);
+                            $("body").append($a);
+                            $a.attr("download","TransactionData"+$.now()+".xlsx");
+                            $a[0].click();
+                            $a.remove();
+                        });
+                    });
+                 
             },
             //Set column definition initialisation properties.
             "columnDefs": [
@@ -1561,40 +1570,7 @@ self.getMonthlyTrendPercent();
             phone : 480
         };
 
-        $('#exportGLVItemDetails').click(function() {
-
-            if(isAjaxing) return;
-            isAjaxing = true;
-           ShowBusy();
-            $.ajax({ 
-                url: base_url + '/glverification/exportGLVItemDetails',
-                data: {
-                    "reconitemcd" : reconitemcd,
-                    "reconstatuscd": reconstatuscd,
-                    "recongrouptitle"  : recongrouptitle,
-                    "priormonth":priormonth,
-                    "deptid":$("#drpdeptid option:selected").val(),
-                    "busunit":$("#drpbusunit option:selected").val(),
-                    "myfilter": $("#drpFilters option:selected").val()
-                },
-                type: 'POST',
-                dataType: "json",
-                success: function(data) {
-                    HideBusy();
-                },
-                error: function (request, status, error) {
-                    HideBusy();
-                }
-            }).done(function(data){
-                isAjaxing = false;
-                var $a = $("<a>");
-                $a.attr("href",data.file);
-                $("body").append($a);
-                $a.attr("download","GLVItemDetailsData"+$.now()+".xlsx");
-                $a[0].click();
-                $a.remove();
-            });
-        });
+       
 
         $('#dt_verifyglvitems').DataTable().clear().destroy();
         var oTable = $('#dt_verifyglvitems').DataTable({
@@ -1657,6 +1633,44 @@ self.getMonthlyTrendPercent();
             },
             "fnInitComplete": function(oSettings, json) {
                 //oSettings.fnDrawCallback = alert('redraw');
+                $("#reconitemcd_data").val(reconitemcd);
+                $("#reconstatuscd_data").val(reconstatuscd);
+                $("#recongrouptitle_data").val(recongrouptitle);
+                $("#priormonth_data").val(priormonth);
+                 $('#exportGLVItemDetails').on('click', function (e){
+
+                        if(isAjaxing) return;
+                        isAjaxing = true;
+                       ShowBusy();
+                        $.ajax({ 
+                            url: base_url + '/glverification/exportGLVItemDetails',
+                            data: {
+                                "reconitemcd" : $("#reconitemcd_data").val(),
+                                "reconstatuscd": $("#reconstatuscd_data").val(),
+                                "recongrouptitle"  : $("#recongrouptitle_data").val(),
+                                "priormonth":$("#priormonth_data").val(),
+                                "deptid":$("#drpdeptid option:selected").val(),
+                                "busunit":$("#drpbusunit option:selected").val(),
+                                "myfilter": $("#drpFilters option:selected").val()
+                            },
+                            type: 'POST',
+                            dataType: "json",
+                            success: function(data) {
+                                HideBusy();
+                            },
+                            error: function (request, status, error) {
+                                HideBusy();
+                            }
+                        }).done(function(data){
+                            isAjaxing = false;
+                            var $a = $("<a>");
+                            $a.attr("href",data.file);
+                            $("body").append($a);
+                            $a.attr("download","GLVItemDetailsData"+$.now()+".xlsx");
+                            $a[0].click();
+                            $a.remove();
+                        });
+                    });
             },
 
             /* Old order

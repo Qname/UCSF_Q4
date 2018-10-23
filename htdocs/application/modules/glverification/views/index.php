@@ -211,6 +211,12 @@
                             <tbody>
                             </tbody>
                         </table>
+                         <div>
+                            <div class="display-none" id="reconitemcd_data"></div>
+                            <div class="display-none" id="reconstatuscd_data"></div>
+                            <div class="display-none" id="recongrouptitle_data"></div>
+                            <div class="display-none" id="priormonth_data"></div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="hr2">
                         <div class="mag-b-50">
@@ -355,30 +361,38 @@
                                 <tbody>
                                 </tbody>
                             </table>
+                             <div>
+                                <div class="display-none" id="empName_data"></div>
+                            </div>
                         </div>
+
                     </div>
                     <div class="tab-pane" id="hr3">
-                        <div style="margin-bottom:10px;">
-                            <select id="monthlyTrendDrop" style="width:100px;">
-                                <option value="(multiple)">(multiple)</option>
-                                <option value="Not Verified">Not Verified</option>
-                                <option value="Complete">Complete</option>
-                            </select>
-                           
-                                 <label for="monthlyTrendDrop"  class="bgcolor-light-grey bd-lightgrey">
+                        <div style="margin-bottom:10px;" class="pull-left">
+                             <label for="monthlyTrendDrop"  class="bgcolor-light-grey bd-lightgrey pull-right" style="margin-bottom: 0px;">
                                 Review department revenue and expense trends, look for deviations from Plan, historical actuals, or forecast, and verify that transactions are accurately recorded.
                             </label> 
+                            <div  class="pull-left  mr-5">
+                                 <select id="monthlyTrendDrop" style="width:100px;" class=" pull-right">
+                                    <option value="(multiple)">(multiple)</option>
+                                    <option value="Not Verified">Not Verified</option>
+                                    <option value="Complete">Complete</option>
+                                </select>
+                            </div>
+                           
+                           
+                                
                             
                            
                         </div>
-                        <div>
+                        <div class=" col-xs-12 no-padding-left">
                             <button type="button" disabled style="width:100px;margin-bottom:10px;" id="monthlyTrendDropBtn">Save</button>
                         </div>
-                        <div id="commentMonthlyTrend" style="margin-bottom: 5px;">
-                            <div class="col-xs-1 no-padding-left bgcolor-light-grey bd-lightgrey" style="text-align: center;padding-top: 3px;padding-right: 0px;margin-right: -14px;">
+                        <div id="commentMonthlyTrend" style="margin-bottom: 5px;"  class=" col-xs-12 no-padding-left">
+                            <div class="col-xs-1 no-padding-left bgcolor-light-grey bd-lightgrey" style="text-align: center;padding-top: 3px;padding-right: 0px;margin-right: -14px;width: 100px;">
                                 <label>Comments:</label>
                             </div>                             
-                            <div class=" bgcolor-light-grey bd-lightgrey" style="width: 10%;" > 
+                            <div class=" bgcolor-light-grey bd-lightgrey" style="padding-left: 70px;width: 120px;" > 
                                 <span class="glyphicon  gi-2x" id="commentMonthly" ></span>
                             </div>
                         </div>
