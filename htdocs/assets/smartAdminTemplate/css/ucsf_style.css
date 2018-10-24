@@ -16,7 +16,7 @@ button[disabled] {
   color: #666666;
   cursor: not-allowed;
 }
-.bgcolor-light-pink{background-color: #f7a3b6;}
+.bgcolor-light-pink{background-color: #FDC0CE;}
 .bgcolor-light-yellow{background-color:#fff199;}
 .bgcolor-light-green{background-color:#d3e4ad;}
 .bgcolor-dark-grey{background-color:#dfe0e0;}
@@ -265,7 +265,7 @@ input[type="radio"] {
     width:100%;
 }
 .dt-link {
-    color: #0071ad !important;
+    color: #035E8E !important;
     cursor: pointer;
 }
 .dt-input {
@@ -434,7 +434,7 @@ h1.front-header {
     color: #ff0000;
 }
 .bg-red {
-    background-color: #f7a3b6;
+    background-color: #FDC0CE;
 }
 .bg-grey {
     background-color: #ebe9e9 !important;
