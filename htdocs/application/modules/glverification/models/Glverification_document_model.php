@@ -25,6 +25,17 @@ class Glverification_document_model extends CI_Model {
         $document_glvTypeId = $this->db->insert_id();
         $this->db->query('insert into Document(DocumentName,Document_GlvTypeId,CreatedDate)
         values( ? , ? , ?  );', array($documentName,$document_glvTypeId,$date));
+         // Set Not verified status for record when add document
+            if($glvType== PAYROLL_TYPE){
+                $this->db->set('ReconStatusCd', 0);
+                $this->db->where('uniqueid', $uniqueId);
+                $this->db->update('SOM_BFA_ReconEmployeeGLV');
+            }else{
+                $this->db->set('ReconStatusCd', 0);
+                $this->db->where('uniqueid', $uniqueId);
+                $this->db->update('COA_SOM_LedgerData');
+            }
+
         if($glvType == TRANSACTION_TYPE){
             $this->db->query("Update COA_SOM_LedgerData set RECON_Link = ? where uniqueid = ?", array($document_glvTypeId, $uniqueId));
         } else{
@@ -71,7 +82,25 @@ class Glverification_document_model extends CI_Model {
                 $data[] = $commentItem;
             }
             $this->db->insert_batch('Document', $data);
-            log_message('info',"addAdditionalDocuments SQL= " . $this->db->last_query());  
+            log_message('info',"addAdditionalDocuments SQL= " . $this->db->last_query()); 
+             $uniqueId=0;
+            $GlvType="";            
+            
+            $result = $this->db->query("select UniqueId,GlvType from Document_GlvType where Id = ? " ,array($document_GlvTypeId))->row(); 
+            
+            $uniqueId = $result->UniqueId;
+            $GlvType = $result->GlvType;
+
+                     // Set Not verified status for record when add comment
+            if($GlvType== PAYROLL_TYPE){
+                $this->db->set('ReconStatusCd', 0);
+                $this->db->where('uniqueid', $uniqueId);
+                $this->db->update('SOM_BFA_ReconEmployeeGLV');
+            }else{
+                $this->db->set('ReconStatusCd', 0);
+                $this->db->where('uniqueid', $uniqueId);
+                $this->db->update('COA_SOM_LedgerData');
+            } 
             return true;
         }
         catch(Exception $e){

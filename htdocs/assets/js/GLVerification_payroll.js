@@ -511,9 +511,14 @@ var GLVerification_payroll_Management = function () {
     
     //event on close button upload popup
     $("#closeUploadBtn").on('click',function(){
+             var glv_management = new GLVerificationManagement();
+
         if($("#upload_glvType").val() == "Transaction"){
             $('#dt_verifyglvitems').DataTable().ajax.reload(null, false);
         } else{//payroll upload
+                    glv_management.Submit_filterGLV(function(){
+                        glv_management.RefreshTable("#dt_glverification_dashboard",true);
+                    });
             $('#dt_payroll_verification').DataTable().ajax.reload(null, false);
         }
        

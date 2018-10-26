@@ -754,9 +754,19 @@ return $approve;
                          break;
                 }
            
-           // $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $item->ReconStatusCd);                
-            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, '');                      
-            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, '');                      
+           // $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $item->ReconStatusCd);  
+           if($item->CommentGLVTypeId != null & intval($item->CommentGLVTypeId)>0){
+            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, 'Yes'); 
+           }else{
+            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, 'No');
+           }
+
+           if($item->ReconLink != null & intval($item->ReconLink)>0){
+            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, 'Yes'); 
+           }else{
+            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, 'No');
+           }           
+                                  
             $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $item->ReconAssignDesc);  
             $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $item->user_name);        
             $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $item->ReconDate);        

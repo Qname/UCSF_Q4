@@ -110,7 +110,7 @@
                                         </th>
                                         <th data-hide="phone,tablet">
                                             <div class="text-center">
-                                                <span style="padding-left: 0px; padding-right: 0px; width:220px;"><br>% GL Verification Items Completed</span>
+                                                <span style="padding-left: 0px; padding-right: 0px; width:220px;"><br>% Items Completed or Pending</span>
                                             </div>
                                         </th>
                                         <th data-hide="phone,tablet">
@@ -416,7 +416,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-custom">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <button type="button" class="close" id="closeModalGLVItemDetails" data-dismiss="modal" aria-hidden="true">x</button>
                 <h4 class="modal-title modal-title-main" style="font-weight: bold;">Verify GLV Items</h4>
             </div>
             <div class="modal-body bodyglvdetail">
