@@ -304,6 +304,13 @@
                                     <b>Payroll Expense Detail and FTE Report</b> - Highlighted amounts in current month column indicate payroll amount or distribution changes from previous month
                                 </p>
                                 </div>
+                                <div  class="col-md-3">
+                                     <div class="mt-5 mag-b-40">
+                                       <button class="pull-right btn3d btn-blue btn-c" id="exportPayroll" ><i class="fa fa-file-excel-o"></i> Export All Data</button>
+                                         <button class="pull-right btn3d btn-blue btn-c mr-5" id="exportPayrollChanged" ><i class="fa fa-file-excel-o"></i> Export Chg Data</button>
+                                   </div>
+                                </div>
+                                <!-- Pending function
                                  <div class="col-md-3" >
                                     <div class="col-xs-12">
                                          <form class="form-inline">                                        
@@ -332,12 +339,10 @@
                                     
                                                               
                                 </div>
+                            -->
                                
                             </div>
-                            <div class="mt-5 mag-b-40">
-                                   <button class="pull-right btn3d btn-blue btn-c" id="exportPayroll" ><i class="fa fa-file-excel-o"></i> Export All Data</button>
-                                     <button class="pull-right btn3d btn-blue btn-c mr-5" id="exportPayrollChanged" ><i class="fa fa-file-excel-o"></i> Export Chg Data</button>
-                               </div>
+                           
                            
                             <table id="dt_payroll_expense_detail" class="table table-striped table-bordered table-hover dataTable no-footer" width="2500px">
                                 <thead>

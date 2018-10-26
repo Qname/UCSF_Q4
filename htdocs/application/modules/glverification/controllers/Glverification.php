@@ -1017,7 +1017,7 @@ return $approve;
         }
 
         $output = array(
-           // "draw" => $_POST['draw'],
+            "draw" => $_POST['draw'],
             // "recordsTotal" => $this->glverification_payroll->count_all(),
             // "recordsFiltered" => $this->glverification_transactions->count_filtered($deptCd, $fiscalYear, $businessUnitCd),
             "data" => $data
@@ -1035,23 +1035,23 @@ return $approve;
         
         $userId = $this->session->userdata['userid'];
         $emp_name = $this->test_input($_POST["emp_name"]);
-        $search_col = $this->test_input($_POST["search_col"]);
-        $search_val  = $this->test_input($_POST["search_val"]);
+        //$search_col = $this->test_input($_POST["search_col"]);
+       // $search_val  = $this->test_input($_POST["search_val"]);
         $column_expense_detail = array('uniqueid','PositionTitleCategory','Employee_Name','Employee_Id','RecType',
         'DeptCd','FundCd','ProjectCd','FunctionCd','FlexCd','PositionTitleCd','EmpChanged','M01','M02','M03');
 
         $start = $_POST["start"];
         $length = $_POST["length"];
-        $order = $_POST["order"][0];
+       // $order = $_POST["order"][0];
         $list = array();
         $total = 0;
         if ($emp_name != ""){
-            $list = $this->glverification_payroll->get_expense_detail_with_empName($userId, $emp_name, $start, $length,$column_expense_detail[$order['column']],$order['dir'],$search_col,$search_val  );
-            $total = $this->glverification_payroll->count_expense_detail_with_empName($userId, $emp_name,$search_col,$search_val  );
+            $list = $this->glverification_payroll->get_expense_detail_with_empName($userId, $emp_name, $start, $length);
+            $total = $this->glverification_payroll->count_expense_detail_with_empName($userId, $emp_name);
         } 
         else {
-            $list = $this->glverification_payroll->get_all_expense_detail($userId, $start, $length,$column_expense_detail[$order['column']],$order['dir'],$search_col,$search_val  );  
-            $total = $this->glverification_payroll->count_expense_detail($userId,$search_col,$search_val  );
+            $list = $this->glverification_payroll->get_all_expense_detail($userId, $start, $length);  
+            $total = $this->glverification_payroll->count_expense_detail($userId);
         } 
 
         $data = array();
@@ -1085,7 +1085,7 @@ return $approve;
         }
 
         $output = array(
-            "draw" => $search_col ." - ".$search_val,
+            "draw" => $_POST['draw'],
             "recordsTotal" => $total,
             "recordsFiltered" => $total,
             "data" => $data

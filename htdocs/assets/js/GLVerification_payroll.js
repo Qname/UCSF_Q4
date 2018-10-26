@@ -918,6 +918,7 @@ var GLVerification_payroll_Management = function () {
             "scrollY":  '100vh',
             "scrollCollapse": true,
             "searching": false,
+            "ordering": false,
             "paging": true,
             "oLanguage": {
                 "sInfo": "Showing _START_ to _END_ of _TOTAL_ items",

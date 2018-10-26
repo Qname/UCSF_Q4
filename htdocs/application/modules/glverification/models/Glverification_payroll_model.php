@@ -156,49 +156,35 @@ class Glverification_payroll_model extends CI_Model {
     /**
      * Get all expense detail data
      * */
-    public function get_all_expense_detail($userId, $start, $length,$columnName,$columnDir,$search_col,$search_val )
+    public function get_all_expense_detail($userId, $start, $length)
     {
-            try {
-                $queryStr = "select uniqueid,PositionTitleCategory,Employee_Name,Employee_Id,RecType,
-                DeptCd,FundCd,ProjectCd,FunctionCd,FlexCd,PositionTitleCd,EmpChanged,M01,M02,M03
-                from SOM_AA_EmployeeListRolling             
-                where SessionUserid = ? AND  ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))
-                AND ".$search_col." like '%".$search_val."%' 
-                AND Employee_Name NOT IN ( 
-                    select Employee_Name from SOM_AA_EmployeeListRolling 
-                    where SessionUserid = ? AND (( M01  != 0 OR M02 != 0 OR M03 != 0) OR RecType IS NULL) 
-                    group by  Employee_Name,PositionTitleCategory
-                    having count(Employee_Name) = 1
-                )";
-
-                if( $columnName == 'uniqueid'){
-                   if ($length != 0){
-                        $queryStr =  $queryStr ." ORDER BY PositionTitleCategory, Employee_Name, Sort1, Sort2, PositionTitleCd, DeptCd, FundCd, ProjectCd, FunctionCd, FlexCd OFFSET  ? ROWS FETCH NEXT ? ROWS ONLY";
-                        $query = $this->db->query($queryStr,array($userId,$userId,(int)$start,(int)$length));
-                    }else{
-                       $queryStr =  $queryStr ." ORDER BY PositionTitleCategory, Employee_Name, Sort1, Sort2, PositionTitleCd, DeptCd, FundCd, ProjectCd, FunctionCd, FlexCd ";
-                       $query = $this->db->query($queryStr,array($userId,$userId));
-                   }
-
-               }else{
-                       if ($length != 0){
-                        $queryStr =  $queryStr ." ORDER BY ".$columnName." ".$columnDir." OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-                        $query = $this->db->query($queryStr,array($userId,$userId,(int)$start,(int)$length));
-                    }else{
-                       $queryStr =  $queryStr ." ORDER BY ".$columnName." ".$columnDir;
-                       $query = $this->db->query($queryStr,array($userId,$userId));
-                   }
-
-               }
-
-             log_message('info',"get_all_expense_detail SQL= " . $this->db->last_query());            
-             return $query->result();     
+        try {
+            $queryStr = "select uniqueid,PositionTitleCategory,Employee_Name,Employee_Id,RecType,
+            DeptCd,FundCd,ProjectCd,FunctionCd,FlexCd,PositionTitleCd,EmpChanged,M01,M02,M03
+            from SOM_AA_EmployeeListRolling             
+            where SessionUserid = ? AND  ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))
+            AND Employee_Name NOT IN ( 
+                select Employee_Name from SOM_AA_EmployeeListRolling 
+                where SessionUserid = ? AND (( M01  != 0 OR M02 != 0 OR M03 != 0) OR RecType IS NULL) 
+                group by  Employee_Name,PositionTitleCategory
+                having count(Employee_Name) = 1
+            )";
+            if ($length != 0){
+                $queryStr =  $queryStr ." ORDER BY PositionTitleCategory, Employee_Name, Sort1, Sort2, PositionTitleCd, DeptCd, FundCd, ProjectCd, FunctionCd, FlexCd OFFSET  ? ROWS FETCH NEXT ? ROWS ONLY";
+                $query = $this->db->query($queryStr,array($userId,$userId,(int)$start,(int)$length));
+            }else{
+             $queryStr =  $queryStr ." ORDER BY PositionTitleCategory, Employee_Name, Sort1, Sort2, PositionTitleCd, DeptCd, FundCd, ProjectCd, FunctionCd, FlexCd ";
+             $query = $this->db->query($queryStr,array($userId,$userId));
          }
-         catch(Exception $e){
-            log_message('error',"get_all_expense_detail: ".$e->getMessage());
-            return "";
-        }
+
+         log_message('info',"get_all_expense_detail SQL= " . $this->db->last_query());            
+         return $query->result();     
+     }
+     catch(Exception $e){
+        log_message('error',"get_all_expense_detail: ".$e->getMessage());
+        return "";
     }
+}
 
     /**
      * Get all expense detail data to export
@@ -217,8 +203,12 @@ class Glverification_payroll_model extends CI_Model {
                     having count(Employee_Name) = 1
                 )";
                 if($changedEmp==true){
-                    $queryStr = $queryStr." AND EmpChanged = 'Chg' ";                    
+                    $queryStr = $queryStr." AND Employee_Name IN (
+                select Employee_Name from SOM_AA_EmployeeListRolling 
+                where SessionUserid = 'Ucsfmanager@Gmail.Com'  and EmpChanged = 'CHG' AND ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))         
+                ) ";                    
                 }
+                $queryStr =  $queryStr ." ORDER BY PositionTitleCategory, Employee_Name, Sort1, Sort2, PositionTitleCd, DeptCd, FundCd, ProjectCd, FunctionCd, FlexCd ";
                  $query = $this->db->query($queryStr,array($userId,$userId));
              
 
@@ -235,14 +225,14 @@ class Glverification_payroll_model extends CI_Model {
     /**
      * Count all expense detail data
      * */
-    public function count_expense_detail($userId,$search_col,$search_val)
+    public function count_expense_detail($userId)
     {
         try {
             $countAll = 0;
             $countIn = 0;
             $queryStrCountAll = "SELECT COUNT(*) AS 'numrows'  
             from SOM_AA_EmployeeListRolling             
-            where SessionUserid = ? AND ".$search_col." like '%".$search_val."%'  AND  ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL)) ";
+            where SessionUserid = ? AND  ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL)) ";
             $queryCountAll = $this->db->query($queryStrCountAll,array($userId));
 
             if($queryCountAll && $queryCountAll->result()){
@@ -251,8 +241,7 @@ class Glverification_payroll_model extends CI_Model {
 
             $queryStrCountIn = "SELECT COUNT(*) AS 'numrows'  
             from SOM_AA_EmployeeListRolling             
-            where SessionUserid = ?  AND  ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))
-            AND ".$search_col." like '%".$search_val."%' 
+            where SessionUserid = ? AND  ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))
             AND Employee_Name  IN ( 
             select Employee_Name from SOM_AA_EmployeeListRolling 
             where SessionUserid = ? AND (( M01  != 0 OR M02 != 0 OR M03 != 0) OR RecType IS NULL) 
@@ -276,7 +265,7 @@ class Glverification_payroll_model extends CI_Model {
     /**
      * Get all expense detail data wwith employee name
      * */
-    public function get_expense_detail_with_empName($userId, $emp_name, $start, $length,$columnName,$columnDir,$search_col,$search_val)
+    public function get_expense_detail_with_empName($userId, $emp_name, $start, $length)
     {
         try {
             $this->db->select($this->column_expense_detail);
@@ -284,10 +273,9 @@ class Glverification_payroll_model extends CI_Model {
             $this->db->where("( M01  != 0 OR M02 != 0 OR M03 != 0)");
             $this->db->where("SessionUserid",$userId);
             $this->db->where("Employee_Name",$emp_name);
-            $this->db->like("".$search_col, $search_val);
             if ($length != 0)
                 $this->db->limit($length,$start);
-            $this->db->order_by("".$columnName,$columnDir);
+            $this->db->order_by($this->order_expense_detail);
 
             $query = $this->db->get();
             log_message('info',"get_expense_detail_with_empName SQL= " . $this->db->last_query());      
@@ -311,9 +299,12 @@ class Glverification_payroll_model extends CI_Model {
             $this->db->where("SessionUserid",$userId);
             $this->db->where("Employee_Name",$emp_name);
             if($changedEmp==true){
-                $this->db->where("EmpChanged","Chg");
+                $this->db->where(" Employee_Name IN (
+                select Employee_Name from SOM_AA_EmployeeListRolling 
+                where SessionUserid = 'Ucsfmanager@Gmail.Com'  and EmpChanged = 'CHG' AND ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))         
+                ) ");
             }
-
+            $this->db->order_by($this->order_expense_detail);
 
             $query = $this->db->get();
             log_message('info',"get_expense_detail_with_empName_ToExport SQL= " . $this->db->last_query());      
@@ -328,14 +319,13 @@ class Glverification_payroll_model extends CI_Model {
     /**
      * Count all expense detail data wwith employee name
      * */
-    public function count_expense_detail_with_empName($userId, $emp_name,$search_col,$search_val  )
+    public function count_expense_detail_with_empName($userId, $emp_name)
     {
         try {
             $this->db->from($this->table_expense_detail);
             $this->db->where("( M01  != 0 OR M02 != 0 OR M03 != 0)");
             $this->db->where("SessionUserid",$userId);
             $this->db->where("Employee_Name",$emp_name);
-            $this->db->like("".$search_col, $search_val);
 
             $data= $this->db->count_all_results();
             log_message('info',"get_expense_detail_with_empName SQL= " . $this->db->last_query());      
