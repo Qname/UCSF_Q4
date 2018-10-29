@@ -205,11 +205,17 @@ class Glverification_payroll_model extends CI_Model {
                 if($changedEmp==true){
                     $queryStr = $queryStr." AND Employee_Name IN (
                 select Employee_Name from SOM_AA_EmployeeListRolling 
-                where SessionUserid = 'Ucsfmanager@Gmail.Com'  and EmpChanged = 'CHG' AND ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))         
+                where SessionUserid = ?  and EmpChanged = 'CHG' AND ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))         
                 ) ";                    
                 }
                 $queryStr =  $queryStr ." ORDER BY PositionTitleCategory, Employee_Name, Sort1, Sort2, PositionTitleCd, DeptCd, FundCd, ProjectCd, FunctionCd, FlexCd ";
-                 $query = $this->db->query($queryStr,array($userId,$userId));
+                if($changedEmp==true){
+                 $query = $this->db->query($queryStr,array($userId,$userId,$userId));
+
+                 }else{
+                     $query = $this->db->query($queryStr,array($userId,$userId));
+
+                 }
              
 
              log_message('info',"get_all_expense_detail_ToExport SQL= " . $this->db->last_query());            
