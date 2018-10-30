@@ -307,7 +307,7 @@ class Glverification_payroll_model extends CI_Model {
             if($changedEmp==true){
                 $this->db->where(" Employee_Name IN (
                 select Employee_Name from SOM_AA_EmployeeListRolling 
-                where SessionUserid = 'Ucsfmanager@Gmail.Com'  and EmpChanged = 'CHG' AND ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))         
+                where SessionUserid = '".$userId."'  and EmpChanged = 'CHG' AND ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))         
                 ) ");
             }
             $this->db->order_by($this->order_expense_detail);

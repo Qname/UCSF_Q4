@@ -590,10 +590,20 @@ return $approve;
         $site = $this->glverification_filter->get_site_data_of_filter( $userId, $deptid,$filterName); 
         $start = $_POST["start"];
         $length = $_POST["length"];
+        $column_GLVItem_detail = array('uniqueid','ReconStatusCd','Comment_GLVType.id','ReconLink','ReconAssignDesc',
+         'lkp_userprofile.user_name','ReconDate','BusinessUnitCd','AccountCd','AccountTitleCd','FundCd','DeptCd','ProjectCd','ActivityCd',
+         'FunctionCd', 'FlexCd','JournalLineRef','Amount','JournalId','JournalPostDt','JournalOprDesc','JournalTitle',
+         'JournalLineDesc','InvoicePO', 'InvoiceId','InvoiceVoucherId','InvoiceDate','InvoiceReqDeptCd','InvoiceVendorName',
+         'InvoiceVendorCd');
+        $search_col = $this->test_input($_POST["search_col"]);
+        $search_val  = $this->test_input($_POST["search_val"]);
+        $order = $_POST["order"][0];
+        $columnName = $column_GLVItem_detail[$order['column']];
+        $columnDir = $order['dir'];
         $total = 0;
         $siteStr = $site == "(any)"? "%":$site;
-        $list = $this->glverification->get_VerifyGLVItemDetails($deptid,$bu,$fy,$fp,$reconitemcd,$reconstatuscd,$recongrouptitle,$priormonth,$start,$length,$filterName, $siteStr);
-        $total = $this->glverification->count_GLVItemDetails($deptid,$bu,$fy,$fp,$reconitemcd,$reconstatuscd,$recongrouptitle,$priormonth,$filterName, $siteStr);
+        $list = $this->glverification->get_VerifyGLVItemDetails($deptid,$bu,$fy,$fp,$reconitemcd,$reconstatuscd,$recongrouptitle,$priormonth,$start,$length,$filterName, $siteStr,$columnName,$columnDir,$search_col,$search_val);
+        $total = $this->glverification->count_GLVItemDetails($deptid,$bu,$fy,$fp,$reconitemcd,$reconstatuscd,$recongrouptitle,$priormonth,$filterName, $siteStr,$search_col,$search_val);
 
         $data = array();
         foreach ($list as $itemdetails) {
@@ -669,7 +679,7 @@ return $approve;
         }
 
         $output = array(
-            "draw" => $_POST['draw'],
+          //  "draw" => $_POST['draw'],
             "recordsTotal" =>$total, //$this->getverification_dashboard->count_all(),
             "recordsFiltered" =>$total, //$this->getverification_dashboard->count_filtered(),
             "data" =>  $data,

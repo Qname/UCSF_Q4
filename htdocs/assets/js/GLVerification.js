@@ -6,6 +6,55 @@ var GLVerificationManagement = function () {
     var self = this;
     var isAjaxing = false;
 
+    $(document).ready(function(){
+        /***** DEPTID: finishes typing instead of on key up *****/
+        var typingTimer = 0;                
+        var doneTypingInterval = 1500;
+        var $input = $('#txtGLVItemFilter');
+
+        /***** CONTROL POINT: will change Rollup *****/
+        $('select#drGLVItemFilter').on('change', function() {   
+             $('#inputGLVItemFilter').show();      
+                $input.val("");           
+            if($("#drGLVItemFilter").val() == "CommentGLVTypeId" || $("#drGLVItemFilter").val() == "ReconLink"){
+                  $('#inputGLVItemFilter').hide(); 
+                  self.doneTyping(); 
+            }
+        });
+
+        /***** CONTROL POINT: will change Rollup *****/ 
+        //on keydown, prevent enter and space
+        $input.on('keydown', function (event) {
+            if(event.keyCode == 13 ||event.keyCode == 32) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        
+        //on paste, start countdown
+        $input.on('paste', function () {
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(self.doneTyping, doneTypingInterval);
+        }); 
+        
+        //on keyup, start the countdown
+        $input.on('keyup', function () {       
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(self.doneTyping, doneTypingInterval);
+        });
+
+        self.doneTyping = function () {
+                var  reconitemcd =   $("#reconitemcd_data").val();
+                var  reconstatuscd =   $("#reconstatuscd_data").val();
+                var  recongrouptitle =   $("#recongrouptitle_data").val();
+                var  priormonth =   $("#priormonth_data").val();                
+                self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
+            }
+       
+    });
+
+
     //function init
     self.init_glverification = function () {
         //load dashboard table
@@ -820,7 +869,13 @@ self.getMonthlyTrendPercent();
                             $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                             $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                            
+                            $("#inputGLVItemFilter").show(); 
+                            $("#inputGLVItemFilter").val("");
+                            $("#drGLVItemFilter").val("ReconAssignDesc");
                             self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+                            
+
 
                             $('#ModalGLVItemDetails').modal('show');
                             $('#ModalGLVItemDetails').removeData();
@@ -863,7 +918,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -911,7 +971,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -956,7 +1021,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -1000,7 +1070,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -1043,7 +1118,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -1084,7 +1164,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -1123,7 +1208,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -1162,7 +1252,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -1203,7 +1298,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -1242,7 +1342,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -1281,7 +1386,12 @@ self.getMonthlyTrendPercent();
                                 $(".modal-footer #txtreconstatuscd").val(reconstatuscd);
                                 $(".modal-footer #txtrecongrouptitle").val(recongrouptitle);
 
+                                
+                                $("#inputGLVItemFilter").show(); 
+                                $("#inputGLVItemFilter").val("");
+                                $("#drGLVItemFilter").val("ReconAssignDesc");
                                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
+
 
                                 $('#ModalGLVItemDetails').modal('show');
                                 $('#ModalGLVItemDetails').removeData();
@@ -1582,7 +1692,6 @@ self.getMonthlyTrendPercent();
             phone : 480
         };
 
-       
 
         $('#dt_verifyglvitems').DataTable().clear().destroy();
         var oTable = $('#dt_verifyglvitems').DataTable({
@@ -1599,7 +1708,7 @@ self.getMonthlyTrendPercent();
             "sPaginationType": "full_numbers",
             "bLengthChange": false,
             "pageLength": 100,
-            "ordering": false,
+            "ordering": true,
             language: {
                 processing: "<img src='assets/images/loading.gif' alt='loading'> Processing...",
                 info: "Showing _START_ to _END_ of _TOTAL_ items"
@@ -1613,6 +1722,8 @@ self.getMonthlyTrendPercent();
                     "reconstatuscd": reconstatuscd,
                     "recongrouptitle"  : recongrouptitle,
                     "priormonth":priormonth,
+                    "search_col": $("#drGLVItemFilter").val(), 
+                    "search_val": $("#txtGLVItemFilter").val(),
                     "deptid":$("#drpdeptid option:selected").val(),
                     "busunit":$("#drpbusunit option:selected").val(),
                     "myfilter": $("#drpFilters option:selected").val()
@@ -1813,7 +1924,7 @@ self.getMonthlyTrendPercent();
             // New order
              "columnDefs": [
              {"targets": 0,"visible": false,"searchable": false},
-             {"class": "col110","targets": 1, "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+             {"class": "col110","targets": 1,"orderable": false, "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
             if(sData !=2000) {
 
                 var ddl = "<select aria-labelledby='lblhidden_status' class='form-control' id='drpreconstatuscd_"+oData[0]+"' >";

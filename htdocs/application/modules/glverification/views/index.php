@@ -624,7 +624,57 @@
                     </div>
                 </div>
                 -->
-                <button class="pull-right btn3d btn-blue btn-c mag-r-12 mb-5" id="exportGLVItemDetails" ><i class="fa fa-file-excel-o"></i> Export Data</button>
+                <div class="col-md-3 pull-right padding-bottom-10" >
+                                    <div class="col-xs-12">
+                                         <form class="form-inline">                                        
+                                            <label for="drGLVItemFilter" class="col-md-5">Filter Results By</label>
+                                            <select class="col-md-7"  id="drGLVItemFilter">
+                                                <!--option value="ReconStatusCd">Verification Status</option-->
+                                                <option value="ReconAssignDesc">GLV assign Description</option>
+                                                <option value="CommentGLVTypeId">Verification Comments</option>
+                                                <option value="ReconLink">Attachment</option>
+                                                <option value="user_name">Verifier</option>
+                                                <option value="ReconDate">Verification Date</option>
+                                                <option value="BusinessUnitCd">Business Unit</option>
+                                                <option value="AccountCd">Account</option>
+                                                <option value="AccountTitleCd">Account Description</option>
+                                                <option value="FundCd">Fund</option>
+                                                <option value="DeptCd">Dept ID</option>
+                                                <option value="ProjectCd">Project ID</option>
+                                                <option value="ActivityCd">Activity Period</option>
+                                                <option value="FunctionCd">Function</option>
+                                                <option value="FlexCd">Flex</option>
+                                                <option value="JournalLineRef">Reference</option>
+                                                <option value="Amount">Amount</option>
+                                                <option value="JournalId">Journal ID</option>
+                                                <option value="JournalPostDt">Jrnl Post Dt</option>
+                                                <option value="JournalOprDesc">Jrnl Opr Desc</option>
+                                                <option value="JournalTitle">Pr Title</option>
+                                                <option value="JournalLineDesc">Journal Description</option>
+                                                <option value="InvoicePO">PO</option>
+                                                <option value="InvoiceId">Invoice</option>
+                                                <option value="InvoiceVoucherId">Voucher</option>
+                                                <option value="InvoiceDate">Invoice Date</option>
+                                                <option value="InvoiceReqDeptCd">Invoice Req Date</option>
+                                                <option value="InvoiceVendorName">Vendor name</option>
+                                                <option value="InvoiceVendorCd">Vendor No.</option>
+
+                                            </select>
+                                        </form>  
+                                    </div>
+                                    <div class="col-xs-12" id="inputGLVItemFilter">
+                                        <form class="form-inline">                                        
+                                          <label for="txtGLVItemFilter" class="col-md-5">Input Data</label>
+                                          <input type="text" class="  col-md-7" id="txtGLVItemFilter" />
+                                        </form>  
+                                    </div>
+                                    
+                                                              
+                                </div>
+                <div class="col-md-12 pull-right" >
+                     <button class="pull-right btn3d btn-blue btn-c mag-r-12 mb-5" id="exportGLVItemDetails" ><i class="fa fa-file-excel-o"></i> Export Data</button>
+                </div>
+               
                 <div class="col-lg-12">
                     <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-0" data-widget-editbutton="false" role="widget" style="margin-bottom: 0;">
                     <!-- widget options:
