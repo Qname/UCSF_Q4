@@ -649,8 +649,8 @@
                                                 <option value="JournalId">Journal ID</option>
                                                 <option value="JournalPostDt">Jrnl Post Dt</option>
                                                 <option value="JournalOprDesc">Jrnl Opr Desc</option>
-                                                <option value="JournalTitle">Pr Title</option>
-                                                <option value="JournalLineDesc">Journal Description</option>
+                                                <option value="JournalTitle">Journal Description</option>
+                                                <option value="JournalLineDesc">Journal Line Description</option>
                                                 <option value="InvoicePO">PO</option>
                                                 <option value="InvoiceId">Invoice</option>
                                                 <option value="InvoiceVoucherId">Voucher</option>
