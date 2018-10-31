@@ -627,7 +627,7 @@
                 <div class="col-md-4 pull-right padding-bottom-10 no-padding-right" >
                                     <div class="col-xs-12">
                                          <form class="form-inline">                                        
-                                            <label for="drGLVItemFilter" class="col-md-5">Filter Results By</label>
+                                            <label for="drGLVItemFilter" class="col-md-5 pull-right">Filter Results By</label>
                                             <select class="col-md-6"  id="drGLVItemFilter">
                                                 <!--option value="ReconStatusCd">Verification Status</option-->
                                                 <option value="AllData">Choose one</option>
@@ -661,21 +661,24 @@
                                                 <option value="InvoiceVendorCd">Vendor No.</option>
 
                                             </select>
-                                            <div class="col-md-1 pull-right">
-                                                <button id="resetGLVItemDetails" ><i class="fa fa-undo" style="font-size: 10px;"></i></button>
+                                           
+                                        </form>
+                                        <div class="col-md-1 pull-right">
+                                                <button id="resetGLVItemDetails" ><i class="fa fa-undo" style="font-size: 10px;"></i></button>  
+                                    </div>
+                                    
                                                 
-                                            </div>
-                                        </form>  
                                     </div>
                                     <div class="col-xs-12" id="inputGLVItemFilter">
                                         <form class="form-inline">                                        
-                                          <label for="txtGLVItemFilter" class="col-md-5">Input Data</label>
+                                          <label for="txtGLVItemFilter" class="col-md-5 pull-right">Input Data</label>
                                           <input type="text" class="  col-md-6" id="txtGLVItemFilter" />
                                         </form>  
                                     </div>
                                     
                                                               
                                 </div>
+                                 
                
                 <div class="col-md-12 pull-right no-padding-right" >
                     

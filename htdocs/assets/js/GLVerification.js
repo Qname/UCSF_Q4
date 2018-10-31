@@ -52,6 +52,13 @@ var GLVerificationManagement = function () {
                 self.glverification_GLVItemDetails_table(reconitemcd,reconstatuscd,recongrouptitle,priormonth);
 
             }
+            $("#resetGLVItemDetails").on('click',function(){
+                $("#inputGLVItemFilter").hide(); 
+                $("#txtGLVItemFilter").val("");
+                $("#drGLVItemFilter").val("AllData");
+                self.doneTyping();      
+            });
+
        
     });
 
@@ -1590,14 +1597,7 @@ self.getMonthlyTrendPercent();
         }
     });
 
-    //when click close comment Modal
-    $("#resetGLVItemDetails").on('click',function(){
-                            $("#inputGLVItemFilter").hide(); 
-                            $("#txtGLVItemFilter").val("");
-                            $("#drGLVItemFilter").val("AllData");
-                            self.doneTyping();      
-    });
-
+   
 
      //when click close GLVItemDetails Modal
     $("#closeModalGLVItemDetails").on('click',function(){
