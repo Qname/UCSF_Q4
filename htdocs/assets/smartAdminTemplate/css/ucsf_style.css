@@ -549,7 +549,6 @@ nav ul li a {font-size: 13px;}
 
 .mag-top-7 {margin-top: 7px;}
 .mag-top-30 {margin-top: 30px;}
-.padding-bottom-10{padding-bottom: 10px;}
 
 /**
 table.dataTable thead .sorting,
@@ -839,6 +838,9 @@ input[type="checkbox"]:disabled + .label-text:before{
 }
 .no-padding-left{
     padding-left: 0px!important;
+}
+.no-padding-right{
+    padding-right: 0px!important;
 }
 @media (max-width: 979px){
     .display-inline.hidden-tablet, .hidden-tablet, .hidden-mobile {

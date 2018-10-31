@@ -624,12 +624,13 @@
                     </div>
                 </div>
                 -->
-                <div class="col-md-3 pull-right padding-bottom-10" >
+                <div class="col-md-4 pull-right padding-bottom-10 no-padding-right" >
                                     <div class="col-xs-12">
                                          <form class="form-inline">                                        
                                             <label for="drGLVItemFilter" class="col-md-5">Filter Results By</label>
-                                            <select class="col-md-7"  id="drGLVItemFilter">
+                                            <select class="col-md-6"  id="drGLVItemFilter">
                                                 <!--option value="ReconStatusCd">Verification Status</option-->
+                                                <option value="AllData">Choose one</option>
                                                 <option value="ReconAssignDesc">GLV assign Description</option>
                                                 <option value="CommentGLVTypeId">Verification Comments</option>
                                                 <option value="ReconLink">Attachment</option>
@@ -660,18 +661,24 @@
                                                 <option value="InvoiceVendorCd">Vendor No.</option>
 
                                             </select>
+                                            <div class="col-md-1 pull-right">
+                                                <button id="resetGLVItemDetails" ><i class="fa fa-undo" style="font-size: 10px;"></i></button>
+                                                
+                                            </div>
                                         </form>  
                                     </div>
                                     <div class="col-xs-12" id="inputGLVItemFilter">
                                         <form class="form-inline">                                        
                                           <label for="txtGLVItemFilter" class="col-md-5">Input Data</label>
-                                          <input type="text" class="  col-md-7" id="txtGLVItemFilter" />
+                                          <input type="text" class="  col-md-6" id="txtGLVItemFilter" />
                                         </form>  
                                     </div>
                                     
                                                               
                                 </div>
-                <div class="col-md-12 pull-right" >
+               
+                <div class="col-md-12 pull-right no-padding-right" >
+                    
                      <button class="pull-right btn3d btn-blue btn-c mag-r-12 mb-5" id="exportGLVItemDetails" ><i class="fa fa-file-excel-o"></i> Export Data</button>
                 </div>
                

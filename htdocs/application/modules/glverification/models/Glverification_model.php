@@ -67,33 +67,30 @@ class Glverification_model extends CI_Model {
                     $queryStr=  $queryStr." AND DeptSite like ? AND  ".$where;
                 }
 
-                if( strcmp($search_col,"CommentGLVTypeId")  == 0 ){
-                    $queryStr=  $queryStr." AND Comment_GLVType.id > 0 " ;
-                }else if ( strcmp($search_col,"ReconLink")  == 0 ){
-                    $queryStr=  $queryStr." AND ( ReconLink is not NULL and ReconLink != '' ) " ;
-                }else if ( strcmp($search_col,"user_name")  == 0){
-                    if( strcmp($search_val,"")  == 0){
-                        $queryStr=  $queryStr." AND (lkp_userprofile.user_name is NULL or lkp_userprofile.user_name = '' ) " ;  
+                if(strcmp($search_col,"AllData")  !== 0){
+                    if( strcmp($search_col,"CommentGLVTypeId")  == 0 ){
+                        $queryStr=  $queryStr." AND Comment_GLVType.id > 0 " ;
+                    }else if ( strcmp($search_col,"ReconLink")  == 0 ){
+                        $queryStr=  $queryStr."  AND ( ReconLink is not NULL and ReconLink != '' )   " ;
+                    }else if ( strcmp($search_col,"user_name")  == 0){
+                        if( strcmp($search_val,"")  == 0){
+                            $queryStr=  $queryStr." AND (lkp_userprofile.user_name is NULL or lkp_userprofile.user_name = '' ) " ;  
+                        }else{
+                            $queryStr=  $queryStr." AND lkp_userprofile.user_name like '%".$this->db->escape_like_str
+                            ($search_val)."%' " ;                        
+                        }
+                    }else if ( strcmp($search_col,"ReconDate")  == 0 ||  strcmp($search_col,"InvoiceDate")  == 0 ||  strcmp($search_col,"JournalPostDt")  == 0){
+                        if( strcmp($search_val,"")  == 0){
+                           $queryStr=  $queryStr." AND ( CONVERT(varchar, ".$search_col.", 101) like '%%' or ".$search_col." is NULL ) " ;
+                       }else{
+                            $queryStr=  $queryStr." AND CONVERT(varchar, ".$search_col.", 101) like '%".$this->db->escape_like_str($search_val). "%' " ;
+                        }                    
                     }else{
-                        $queryStr=  $queryStr." AND lkp_userprofile.user_name like '%".$this->db->escape_like_str
-                        ($search_val).
-                        "%' " ;                        
+                        $queryStr=  $queryStr." AND ".$search_col." like '%".$this->db->escape_like_str($search_val). "%' " ;                    
                     }
-                }else if ( strcmp($search_col,"ReconDate")  == 0 ||  strcmp($search_col,"InvoiceDate")  == 0 ||  strcmp($search_col,"JournalPostDt")  == 0){
-                    if( strcmp($search_val,"")  == 0){
-                     $queryStr=  $queryStr." AND ( CONVERT(varchar, ".$search_col.", 101) like '%%' or ".$search_col." is NULL ) " ;
-                 }else{
-                    $queryStr=  $queryStr." AND CONVERT(varchar, ".$search_col.", 101) like '%".$this->db->escape_like_str
-                    ($search_val).
-                    "%' " ;
-                }                    
-            }else{
-                $queryStr=  $queryStr." AND ".$search_col." like '%".$this->db->escape_like_str
-                ($search_val).
-                "%' " ;                    
-            }
+                }
 
-            
+
 
             if ($length != 0){
                 $queryStr =  $queryStr ." ORDER BY ".$columnName." ".$columnDir." OFFSET  ? ROWS FETCH NEXT ? ROWS ONLY";
@@ -103,8 +100,8 @@ class Glverification_model extends CI_Model {
                 $query =  $this->db->query(  $queryStr,array(TRANSACTION_TYPE,$recongrouptitle,$reconstatuscd,$fy,$fp,$deptid,$deptid,$deptid,$deptid,$deptid,$deptid,$bu,$site ));
             }
 
-            
-            
+
+
         }else{
             if ($priormonth == 1) {
                 $queryStr = "select lkp_userprofile.user_name,vw_COA_Report_Ledger_Details.*, Comment_GLVType.id as CommentGLVTypeId 
@@ -115,7 +112,7 @@ class Glverification_model extends CI_Model {
                 where systemledger='ACTUALS' And (AccountLevelACd='4000A'
                 Or AccountLevelACd='5000A' Or AccountLevelACd='5700A') And ReconItemCd = ? AND ReconStatusCd = ? AND FiscalYear = ?  AND FiscalPeriod < ?  AND (DeptLevel1Cd = ? OR DeptLevel2Cd = ?
                 OR DeptLevel3Cd = ? OR DeptLevel4Cd = ? OR DeptLevel5Cd = ? OR DeptLevel6Cd = ?) AND BusinessUnitCd =  ? ";
-                
+
             }else{
                 $queryStr = "select lkp_userprofile.user_name,vw_COA_Report_Ledger_Details.*, Comment_GLVType.id as CommentGLVTypeId 
                 from vw_COA_Report_Ledger_Details 
@@ -125,7 +122,7 @@ class Glverification_model extends CI_Model {
                 where systemledger='ACTUALS' And (AccountLevelACd='4000A'
                 Or AccountLevelACd='5000A' Or AccountLevelACd='5700A') And ReconItemCd = ? AND ReconStatusCd = ? AND FiscalYear = ?  AND FiscalPeriod = ?  AND (DeptLevel1Cd = ? OR DeptLevel2Cd = ?
                 OR DeptLevel3Cd = ? OR DeptLevel4Cd = ? OR DeptLevel5Cd = ? OR DeptLevel6Cd = ?) AND BusinessUnitCd =  ? ";
-                
+
             }
             if ($site != "%"){
                 $queryStr=  $queryStr." AND DeptSite = ? AND  ".$where;
@@ -133,33 +130,30 @@ class Glverification_model extends CI_Model {
                 $queryStr=  $queryStr." AND DeptSite like ? AND  ".$where;
             }
 
-            if( strcmp($search_col,"CommentGLVTypeId")  == 0 ){
-                $queryStr=  $queryStr." AND Comment_GLVType.id > 0 " ;
-            }else if ( strcmp($search_col,"ReconLink")  == 0 ){
-                $queryStr=  $queryStr." AND ( ReconLink is not NULL and ReconLink != '' )    " ;
-            }else if ( strcmp($search_col,"user_name")  == 0){
-                if( strcmp($search_val,"")  == 0){
-                    $queryStr=  $queryStr." AND (lkp_userprofile.user_name is NULL or lkp_userprofile.user_name = '' ) " ;  
+            if(strcmp($search_col,"AllData")  !== 0){
+                if( strcmp($search_col,"CommentGLVTypeId")  == 0 ){
+                    $queryStr=  $queryStr." AND Comment_GLVType.id > 0 " ;
+                }else if ( strcmp($search_col,"ReconLink")  == 0 ){
+                    $queryStr=  $queryStr."  AND ( ReconLink is not NULL and ReconLink != '' )   " ;
+                }else if ( strcmp($search_col,"user_name")  == 0){
+                    if( strcmp($search_val,"")  == 0){
+                        $queryStr=  $queryStr." AND (lkp_userprofile.user_name is NULL or lkp_userprofile.user_name = '' ) " ;  
+                    }else{
+                        $queryStr=  $queryStr." AND lkp_userprofile.user_name like '%".$this->db->escape_like_str
+                        ($search_val). "%' " ;                        
+                    }
+                }else if ( strcmp($search_col,"ReconDate")  == 0 ||  strcmp($search_col,"InvoiceDate")  == 0 ||  strcmp($search_col,"JournalPostDt")  == 0){
+                    if( strcmp($search_val,"")  == 0){
+                       $queryStr=  $queryStr." AND ( CONVERT(varchar, ".$search_col.", 101) like '%%' or ".$search_col." is NULL ) " ;
+                   }else{
+                        $queryStr=  $queryStr." AND CONVERT(varchar, ".$search_col.", 101) like '%".$this->db->escape_like_str($search_val). "%' " ;
+                    }                    
                 }else{
-                    $queryStr=  $queryStr." AND lkp_userprofile.user_name like '%".$this->db->escape_like_str
-                    ($search_val).
-                    "%' " ;                        
+                    $queryStr=  $queryStr." AND ".$search_col." like '%".$this->db->escape_like_str($search_val). "%' " ;                    
                 }
-            }else if ( strcmp($search_col,"ReconDate")  == 0 ||  strcmp($search_col,"InvoiceDate")  == 0 ||  strcmp($search_col,"JournalPostDt")  == 0){
-                if( strcmp($search_val,"")  == 0){
-                 $queryStr=  $queryStr." AND ( CONVERT(varchar, ".$search_col.", 101) like '%%' or ".$search_col." is NULL ) " ;
-             }else{
-                $queryStr=  $queryStr." AND CONVERT(varchar, ".$search_col.", 101) like '%".$this->db->escape_like_str
-                ($search_val).
-                "%' " ;
-            }                    
-        }else{
-            $queryStr=  $queryStr." AND ".$search_col." like '%".$this->db->escape_like_str
-            ($search_val).
-            "%' " ;                    
-        }
-        
-        
+            }
+
+
 
         if ($length != 0){
             $queryStr =  $queryStr ." ORDER BY ".$columnName." ".$columnDir." OFFSET  ? ROWS FETCH NEXT ? ROWS ONLY";
@@ -170,9 +164,9 @@ class Glverification_model extends CI_Model {
             $query =  $this->db->query(  $queryStr,array(TRANSACTION_TYPE,$reconitemcd,$reconstatuscd,$fy,$fp,$deptid,$deptid,$deptid,$deptid,$deptid,$deptid,$bu,$site ));
         }
 
-        
-        
-        
+
+
+
             //$rowcount = $query->num_rows();
     }
     $data = $query->result();
@@ -220,7 +214,7 @@ catch(Exception $e){
                     $queryStr=  $queryStr." AND DeptSite like ? AND  ".$where;
                 }
 
-                
+
                 $query =  $this->db->query(  $queryStr,array(TRANSACTION_TYPE,$recongrouptitle,$reconstatuscd,$fy,$fp,$deptid,$deptid,$deptid,$deptid,$deptid,$deptid,$bu,$site ));
                 
             }else{
@@ -233,7 +227,7 @@ catch(Exception $e){
                     where systemledger='ACTUALS' And (AccountLevelACd='4000A'
                     Or AccountLevelACd='5000A' Or AccountLevelACd='5700A') And ReconItemCd = ? AND ReconStatusCd = ? AND FiscalYear = ?  AND FiscalPeriod < ?  AND (DeptLevel1Cd = ? OR DeptLevel2Cd = ?
                     OR DeptLevel3Cd = ? OR DeptLevel4Cd = ? OR DeptLevel5Cd = ? OR DeptLevel6Cd = ?) AND BusinessUnitCd =  ? ";
-                    
+
                 }else{
                     $queryStr = "select lkp_userprofile.user_name,vw_COA_Report_Ledger_Details.*, Comment_GLVType.id as CommentGLVTypeId 
                     from vw_COA_Report_Ledger_Details 
@@ -243,18 +237,18 @@ catch(Exception $e){
                     where systemledger='ACTUALS' And (AccountLevelACd='4000A'
                     Or AccountLevelACd='5000A' Or AccountLevelACd='5700A') And ReconItemCd = ? AND ReconStatusCd = ? AND FiscalYear = ?  AND FiscalPeriod = ?  AND (DeptLevel1Cd = ? OR DeptLevel2Cd = ?
                     OR DeptLevel3Cd = ? OR DeptLevel4Cd = ? OR DeptLevel5Cd = ? OR DeptLevel6Cd = ?) AND BusinessUnitCd =  ? ";
-                    
+
                 }
                 if ($site != "%"){
                     $queryStr=  $queryStr." AND DeptSite = ? AND  ".$where;
                 } else{
                     $queryStr=  $queryStr." AND DeptSite like ? AND  ".$where;
                 }
-                
-                
+
+
                 $query =  $this->db->query(  $queryStr,array(TRANSACTION_TYPE,$reconitemcd,$reconstatuscd,$fy,$fp,$deptid,$deptid,$deptid,$deptid,$deptid,$deptid,$bu,$site ));
                 
-                
+
             //$rowcount = $query->num_rows();
             }
             $data = $query->result();
@@ -300,31 +294,28 @@ catch(Exception $e){
                     $queryStr=  $queryStr." AND DeptSite like ? AND  ".$where;
                 }
 
-                if( strcmp($search_col,"CommentGLVTypeId")  == 0 ){
-                    $queryStr=  $queryStr." AND Comment_GLVType.id > 0 " ;
-                }else if ( strcmp($search_col,"ReconLink")  == 0 ){
-                    $queryStr=  $queryStr."  AND ( ReconLink is not NULL and ReconLink != '' )   " ;
-                }else if ( strcmp($search_col,"user_name")  == 0){
-                    if( strcmp($search_val,"")  == 0){
-                        $queryStr=  $queryStr." AND (lkp_userprofile.user_name is NULL or lkp_userprofile.user_name = '' ) " ;  
+                if(strcmp($search_col,"AllData")  !== 0){
+                    if( strcmp($search_col,"CommentGLVTypeId")  == 0 ){
+                        $queryStr=  $queryStr." AND Comment_GLVType.id > 0 " ;
+                    }else if ( strcmp($search_col,"ReconLink")  == 0 ){
+                        $queryStr=  $queryStr."  AND ( ReconLink is not NULL and ReconLink != '' )   " ;
+                    }else if ( strcmp($search_col,"user_name")  == 0){
+                        if( strcmp($search_val,"")  == 0){
+                            $queryStr=  $queryStr." AND (lkp_userprofile.user_name is NULL or lkp_userprofile.user_name = '' ) " ;  
+                        }else{
+                            $queryStr=  $queryStr." AND lkp_userprofile.user_name like '%".$this->db->escape_like_str
+                            ($search_val)."%' " ;                        
+                        }
+                    }else if ( strcmp($search_col,"ReconDate")  == 0 ||  strcmp($search_col,"InvoiceDate")  == 0 ||  strcmp($search_col,"JournalPostDt")  == 0){
+                        if( strcmp($search_val,"")  == 0){
+                           $queryStr=  $queryStr." AND ( CONVERT(varchar, ".$search_col.", 101) like '%%' or ".$search_col." is NULL ) " ;
+                       }else{
+                            $queryStr=  $queryStr." AND CONVERT(varchar, ".$search_col.", 101) like '%".$this->db->escape_like_str($search_val). "%' " ;
+                        }                    
                     }else{
-                        $queryStr=  $queryStr." AND lkp_userprofile.user_name like '%".$this->db->escape_like_str
-                        ($search_val).
-                        "%' " ;                        
+                        $queryStr=  $queryStr." AND ".$search_col." like '%".$this->db->escape_like_str($search_val). "%' " ;                    
                     }
-                }else if ( strcmp($search_col,"ReconDate")  == 0 ||  strcmp($search_col,"InvoiceDate")  == 0 ||  strcmp($search_col,"JournalPostDt")  == 0){
-                    if( strcmp($search_val,"")  == 0){
-                     $queryStr=  $queryStr." AND ( CONVERT(varchar, ".$search_col.", 101) like '%%' or ".$search_col." is NULL ) " ;
-                 }else{
-                    $queryStr=  $queryStr." AND CONVERT(varchar, ".$search_col.", 101) like '%".$this->db->escape_like_str
-                    ($search_val).
-                    "%' " ;
-                }                    
-            }else{
-                $queryStr=  $queryStr." AND ".$search_col." like '%".$this->db->escape_like_str
-                ($search_val).
-                "%' " ;                    
-            }
+                }
 
 
             $query =  $this->db->query(  $queryStr,array(TRANSACTION_TYPE,$recongrouptitle,$reconstatuscd,$fy,$fp,$deptid,$deptid,$deptid,$deptid,$deptid,$deptid,$bu,$site));
@@ -352,31 +343,29 @@ catch(Exception $e){
                 $queryStr=  $queryStr." AND DeptSite like ? AND  ".$where;
             }
 
-            if( strcmp($search_col,"CommentGLVTypeId")  == 0 ){
-                $queryStr=  $queryStr." AND Comment_GLVType.id > 0 " ;
-            }else if ( strcmp($search_col,"ReconLink")  == 0 ){
-                $queryStr=  $queryStr."  AND ( ReconLink is not NULL and ReconLink != '' )   " ;
-            }else if ( strcmp($search_col,"user_name")  == 0){
-                if( strcmp($search_val,"")  == 0){
-                    $queryStr=  $queryStr." AND (lkp_userprofile.user_name is NULL or lkp_userprofile.user_name = '' ) " ;  
+            if(strcmp($search_col,"AllData")  !== 0){
+                if( strcmp($search_col,"CommentGLVTypeId")  == 0 ){
+                    $queryStr=  $queryStr." AND Comment_GLVType.id > 0 " ;
+                }else if ( strcmp($search_col,"ReconLink")  == 0 ){
+                    $queryStr=  $queryStr."  AND ( ReconLink is not NULL and ReconLink != '' )   " ;
+                }else if ( strcmp($search_col,"user_name")  == 0){
+                    if( strcmp($search_val,"")  == 0){
+                        $queryStr=  $queryStr." AND (lkp_userprofile.user_name is NULL or lkp_userprofile.user_name = '' ) " ;  
+                    }else{
+                        $queryStr=  $queryStr." AND lkp_userprofile.user_name like '%".$this->db->escape_like_str
+                        ($search_val).  "%' " ;                        
+                    }
+                }else if ( strcmp($search_col,"ReconDate")  == 0 ||  strcmp($search_col,"InvoiceDate")  == 0 ||  strcmp($search_col,"JournalPostDt")  == 0){
+                    if( strcmp($search_val,"")  == 0){
+                       $queryStr=  $queryStr." AND ( CONVERT(varchar, ".$search_col.", 101) like '%%' or ".$search_col." is NULL ) " ;
+                   }else{
+                        $queryStr=  $queryStr." AND CONVERT(varchar, ".$search_col.", 101) like '%".$this->db->escape_like_str($search_val). "%' " ;
+                    }                    
                 }else{
-                    $queryStr=  $queryStr." AND lkp_userprofile.user_name like '%".$this->db->escape_like_str
-                    ($search_val).
-                    "%' " ;                        
+                    $queryStr=  $queryStr." AND ".$search_col." like '%".$this->db->escape_like_str($search_val). "%' " ;                    
                 }
-            }else if ( strcmp($search_col,"ReconDate")  == 0 ||  strcmp($search_col,"InvoiceDate")  == 0 ||  strcmp($search_col,"JournalPostDt")  == 0){
-                if( strcmp($search_val,"")  == 0){
-                 $queryStr=  $queryStr." AND ( CONVERT(varchar, ".$search_col.", 101) like '%%' or ".$search_col." is NULL ) " ;
-             }else{
-                $queryStr=  $queryStr." AND CONVERT(varchar, ".$search_col.", 101) like '%".$this->db->escape_like_str
-                ($search_val).
-                "%' " ;
-            }                    
-        }else{
-            $queryStr=  $queryStr." AND ".$search_col." like '%".$this->db->escape_like_str
-            ($search_val).
-            "%' " ;                    
-        }
+            }
+            
 
         $query =  $this->db->query(  $queryStr,array(TRANSACTION_TYPE,$reconitemcd,$reconstatuscd,$fy,$fp,$deptid,$deptid,$deptid,$deptid,$deptid,$deptid,$bu,$site));
     }
@@ -399,10 +388,10 @@ catch(Exception $e){
     {
         try {
             if($this->db->update_batch("COA_SOM_LedgerData", $data, 'uniqueid')){
-               log_message('info',"update_verifyGLVItemsDetails SQL= " . $this->db->last_query());            
-               return true;
-           }        
-           else
+             log_message('info',"update_verifyGLVItemsDetails SQL= " . $this->db->last_query());            
+             return true;
+         }        
+         else
             return false;
     }
     catch(Exception $e){
