@@ -624,10 +624,10 @@
                     </div>
                 </div>
                 -->
-                <div class="col-md-4 pull-right padding-bottom-10 no-padding-right" >
+                <div class="col-lg-4 pull-right padding-bottom-10 no-padding-right" >
                                     <div class="col-xs-12">
-                                         <form class="form-inline">                                        
-                                            <label for="drGLVItemFilter" class="col-md-5 pull-right">Filter Results By</label>
+                                         <form class="form-inline col-md-11">                                        
+                                            <label for="drGLVItemFilter" class="col-md-6" style="text-align: right;">Filter Results By</label>
                                             <select class="col-md-6"  id="drGLVItemFilter">
                                                 <!--option value="ReconStatusCd">Verification Status</option-->
                                                 <option value="AllData">Choose one</option>
@@ -670,8 +670,8 @@
                                                 
                                     </div>
                                     <div class="col-xs-12" id="inputGLVItemFilter">
-                                        <form class="form-inline">                                        
-                                          <label for="txtGLVItemFilter" class="col-md-5 pull-right">Input Data</label>
+                                        <form class="form-inline  col-md-11">                                        
+                                          <label for="txtGLVItemFilter" class="col-md-6"  style="text-align: right;">Input Data</label>
                                           <input type="text" class="  col-md-6" id="txtGLVItemFilter" />
                                         </form>  
                                     </div>
@@ -680,12 +680,12 @@
                                 </div>
                                  
                
-                <div class="col-md-12 pull-right no-padding-right" >
+                <div class="col-lg-12 pull-right no-padding-right" >
                     
                      <button class="pull-right btn3d btn-blue btn-c mag-r-12 mb-5" id="exportGLVItemDetails" ><i class="fa fa-file-excel-o"></i> Export Data</button>
                 </div>
                
-                <div class="col-lg-12">
+                <div class="col-lg-12" id="glvItemGrid">
                     <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-0" data-widget-editbutton="false" role="widget" style="margin-bottom: 0;">
                     <!-- widget options:
                     usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
