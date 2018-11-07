@@ -354,8 +354,6 @@ class Glverification extends MY_Controller {
         $data['issuccess']= $this->glverification->FilterDataGLV_Submit($uid,$deptid,$deptid,$bu,$siteStr,$uid,$myfilter,$fy,$fp,"1");
         $data['approve'] = $this->GetAcknowledgerApprove($deptid,$fy,$fp);
         $data['reportdate']=$reportdate;
-        $data['tempData']= $this->glverification->get_tempData($deptid,$deptid,$bu,$site,$myfilter,$fy,$fp,"1");
-
         echo json_encode($data);
     }
 
