@@ -142,6 +142,8 @@ class Glverification extends MY_Controller {
             //check acknowlege
             $approve_ack = $this->GetAcknowledgerApprove($deptid,$this->session->userdata('fy'),$this->session->userdata('fp'));
 
+
+            
             
             $this->load->helper('url');
             $data['bu'] = $bu;
@@ -352,6 +354,7 @@ class Glverification extends MY_Controller {
         $data['issuccess']= $this->glverification->FilterDataGLV_Submit($uid,$deptid,$deptid,$bu,$siteStr,$uid,$myfilter,$fy,$fp,"1");
         $data['approve'] = $this->GetAcknowledgerApprove($deptid,$fy,$fp);
         $data['reportdate']=$reportdate;
+        $data['tempData']= $this->glverification->get_tempData($deptid,$deptid,$bu,$site,$myfilter,$fy,$fp,"1");
 
         echo json_encode($data);
     }
@@ -1158,9 +1161,36 @@ return $approve;
             $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $item->FlexCd);
             $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $item->PositionTitleCd);
             $objPHPExcel->getActiveSheet()->SetCellValue('K' . $rowCount, $item->EmpChanged);
-            $objPHPExcel->getActiveSheet()->SetCellValue('L' . $rowCount, $item->M01);
-            $objPHPExcel->getActiveSheet()->SetCellValue('M' . $rowCount, $item->M02);
-            $objPHPExcel->getActiveSheet()->SetCellValue('N' . $rowCount, $item->M03);
+            if($item->M01 != 0 && $item->M01 != null){
+                if($item->RecType == 'FTE'){
+                    $objPHPExcel->getActiveSheet()->SetCellValue('L' . $rowCount, $this->parseToPercent($item->M01));
+                }else{
+                    $objPHPExcel->getActiveSheet()->SetCellValue('L' . $rowCount, $item->M01);
+                }
+            }else{
+               $objPHPExcel->getActiveSheet()->SetCellValue('L' . $rowCount,''); 
+            };
+            if($item->M02 != 0 && $item->M02 != null){
+                if($item->RecType == 'FTE'){
+                    $objPHPExcel->getActiveSheet()->SetCellValue('M' . $rowCount, $this->parseToPercent($item->M02));
+                }else{
+                    $objPHPExcel->getActiveSheet()->SetCellValue('M' . $rowCount, $item->M02);
+                }
+            }else{
+               $objPHPExcel->getActiveSheet()->SetCellValue('M' . $rowCount,''); 
+            };
+            if($item->M03 != 0 && $item->M03 != null){
+                if($item->RecType == 'FTE'){
+                    $objPHPExcel->getActiveSheet()->SetCellValue('N' . $rowCount, $this->parseToPercent($item->M03));
+                }else{
+                    $objPHPExcel->getActiveSheet()->SetCellValue('N' . $rowCount, $item->M03);
+                }
+            }else{
+               $objPHPExcel->getActiveSheet()->SetCellValue('N' . $rowCount,''); 
+            };
+            
+          //  $objPHPExcel->getActiveSheet()->SetCellValue('M' . $rowCount, $item->M02);
+          //  $objPHPExcel->getActiveSheet()->SetCellValue('N' . $rowCount, $item->M03);
             $rowCount++;
         } 
 
@@ -1731,4 +1761,9 @@ return $approve;
         echo json_encode($GLVComentTypeId);
     }
 
+
+    public function parseToPercent($data){
+       $value= number_format($data*100,2);
+        return  $value .'%';
+    }
 }

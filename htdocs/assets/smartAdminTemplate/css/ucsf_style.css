@@ -842,6 +842,12 @@ input[type="checkbox"]:disabled + .label-text:before{
 .no-padding-right{
     padding-right: 0px!important;
 }
+.sorting{
+    background-size: 12px 24px!important;
+}
+.sorting_asc, .sorting_desc{
+    background-size: 12px 12px!important;
+}
 @media (max-width: 979px){
     .display-inline.hidden-tablet, .hidden-tablet, .hidden-mobile {
         display: block !important;

@@ -624,11 +624,17 @@
                     </div>
                 </div>
                 -->
-                <div class="col-lg-4 pull-right padding-bottom-10 no-padding-right" >
-                                    <div class="col-xs-12">
-                                         <form class="form-inline col-md-11">                                        
-                                            <label for="drGLVItemFilter" class="col-md-6" style="text-align: right;">Filter Results By</label>
-                                            <select class="col-md-6"  id="drGLVItemFilter">
+                <div class="col-lg-12">
+                    <label >
+                                Note: If you wish to add comments or upload attachments on transaction rows, do so before changing the Verification Status to Pending or Complete.
+                            </label> 
+                </div>
+                
+                <div class="col-lg-3 padding-bottom-10 no-padding-right pull-right" >
+                                    <div class="col-xs-12 no-padding-right no-padding-left">
+                                         <div class="form-inline">                                        
+                                            <label for="drGLVItemFilter" class="col-md-4  no-padding-left">Filter Results By</label>
+                                            <select class="col-md-5"  id="drGLVItemFilter">
                                                 <!--option value="ReconStatusCd">Verification Status</option-->
                                                 <option value="AllData">Choose one</option>
                                                 <option value="ReconAssignDesc">GLV assign Description</option>
@@ -661,18 +667,18 @@
                                                 <option value="InvoiceVendorCd">Vendor No.</option>
 
                                             </select>
-                                           
-                                        </form>
-                                        <div class="col-md-1 pull-right">
-                                                <button id="resetGLVItemDetails" ><i class="fa fa-undo" style="font-size: 10px;"></i></button>  
+                                            <div class="col-md-3 pull-right">
+                                                <button id="resetGLVItemDetails" >Clear&nbsp;<i class="fa fa-undo" style="font-size: 10px;"></i></button>  
                                     </div>
+                                        </div>
+                                       
                                     
                                                 
                                     </div>
-                                    <div class="col-xs-12" id="inputGLVItemFilter">
-                                        <form class="form-inline  col-md-11">                                        
-                                          <label for="txtGLVItemFilter" class="col-md-6"  style="text-align: right;">Input Data</label>
-                                          <input type="text" class="  col-md-6" id="txtGLVItemFilter" />
+                                    <div class="col-xs-12  no-padding-right no-padding-left" id="inputGLVItemFilter">
+                                        <form class="form-inline ">                                        
+                                          <label for="txtGLVItemFilter" class="col-md-4  no-padding-left" >Input Data</label>
+                                          <input type="text" class="  col-md-5  col-xs-12" id="txtGLVItemFilter" />
                                         </form>  
                                     </div>
                                     
