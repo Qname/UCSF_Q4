@@ -18,3 +18,4 @@ CREATE TABLE [dbo].[GLVSetting_Upload](
 ) ON [PRIMARY]
 
 GO
+INSERT [dbo].[GLVSetting_Upload] ( [UploadType], [ValueSize]) VALUES (N'FileUpload',100)
