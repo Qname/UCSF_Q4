@@ -195,7 +195,7 @@ class Glverification_payroll_model extends CI_Model {
                 $queryStr = "select uniqueid,PositionTitleCategory,Employee_Name,Employee_Id,RecType,
                 DeptCd,FundCd,ProjectCd,FunctionCd,FlexCd,PositionTitleCd,EmpChanged,M01,M02,M03
                 from SOM_AA_EmployeeListRolling             
-                where SessionUserid = ? AND  ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))
+                where SessionUserid = ? AND Employee_Id != 'zSpace'  AND  ( (M01  != 0 OR M02 != 0 OR M03 != 0)  OR (RecType IS  NULL))
                 AND Employee_Name NOT IN ( 
                     select Employee_Name from SOM_AA_EmployeeListRolling 
                     where SessionUserid = ? AND (( M01  != 0 OR M02 != 0 OR M03 != 0) OR RecType IS NULL) 
@@ -304,6 +304,7 @@ class Glverification_payroll_model extends CI_Model {
             $this->db->where("( M01  != 0 OR M02 != 0 OR M03 != 0)");
             $this->db->where("SessionUserid",$userId);
             $this->db->where("Employee_Name",$emp_name);
+            $this->db->where("Employee_Id != 'zSpace'");
             if($changedEmp==true){
                 $this->db->where(" Employee_Name IN (
                 select Employee_Name from SOM_AA_EmployeeListRolling 
