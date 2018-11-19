@@ -231,7 +231,4 @@ var GLVerification_MonthlyTrend_Report =  function(){
             }
         });
     }
-
-
-   
 }

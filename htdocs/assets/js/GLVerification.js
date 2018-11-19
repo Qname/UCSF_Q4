@@ -1585,11 +1585,7 @@ self.getMonthlyTrendPercent();
     $("#closeModalCommentBtn").on('click',function(){
         if($("#comment_Type").val() == "Payroll"){
          //   self.glverification_payroll_verify_table();
-            $('#dt_payroll_verification').DataTable().ajax.reload(null,false);
-            self.Submit_filterGLV(function(){
-                        self.RefreshTable("#dt_glverification_dashboard",true);
-                    });
-            
+            $('#dt_payroll_verification').DataTable().ajax.reload(null,false);            
         } else if ($("#comment_Type").val() == "Transaction"){
             $('#dt_verifyglvitems').DataTable().ajax.reload(null,false);
         }else{
@@ -1599,12 +1595,7 @@ self.getMonthlyTrendPercent();
 
    
 
-     //when click close GLVItemDetails Modal
-    $("#closeModalGLVItemDetails").on('click',function(){
-         self.Submit_filterGLV(function(){
-                        self.RefreshTable("#dt_transaction",true);
-                    });
-    });
+   
     
     $("#cancelCommentBtn").on("click",function(){
         $('#addCommentBtn').removeAttr('disabled');

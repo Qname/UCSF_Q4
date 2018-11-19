@@ -410,26 +410,7 @@ class Glverification_payroll_model extends CI_Model {
                 'Comment' => $comment,
                 'Date'  => $date
             );
-            $uniqueId=0;
-            $commentType="";
-            
             $this->db->trans_start();
-             $result = $this->db->query("select CT.UniqueId, CT.CommentType from Comment_GlvType as CT
-             left join Comment as C on CT.Id = C.Comment_GlvType where C.Id =? " ,array($commentId))->row(); 
-            
-            $uniqueId = $result->UniqueId;
-            $commentType = $result->CommentType;
-
-                     // Set Not verified status for record when add comment
-            if($commentType== PAYROLL_TYPE){
-                $this->db->set('ReconStatusCd', 0);
-                $this->db->where('uniqueid', $uniqueId);
-                $this->db->update('SOM_BFA_ReconEmployeeGLV');
-            }else{
-                $this->db->set('ReconStatusCd', 0);
-                $this->db->where('uniqueid', $uniqueId);
-                $this->db->update('COA_SOM_LedgerData');
-            }
 
             $this->db->where('Id', $commentId);
             $this->db->update('Comment', $data);
@@ -464,28 +445,9 @@ class Glverification_payroll_model extends CI_Model {
                 'UserId' => $userId,
                 'Comment_GlvType' =>$comment_glvType
             );
-            $uniqueId=0;
-            $commentType="";
             
             
             $this->db->trans_start();
-            $result = $this->db->query("select UniqueId,CommentType from Comment_GlvType where Id = ? " ,array($comment_glvType))->row(); 
-            
-            $uniqueId = $result->UniqueId;
-            $commentType = $result->CommentType;
-
-                     // Set Not verified status for record when add comment
-            if($commentType== PAYROLL_TYPE){
-                $this->db->set('ReconStatusCd', 0);
-                $this->db->where('uniqueid', $uniqueId);
-                $this->db->update('SOM_BFA_ReconEmployeeGLV');
-            }else{
-                $this->db->set('ReconStatusCd', 0);
-                $this->db->where('uniqueid', $uniqueId);
-                $this->db->update('COA_SOM_LedgerData');
-            }
-
-
             $this->db->insert('Comment', $data);
 
             $this->db->trans_complete(); 
@@ -524,16 +486,6 @@ class Glverification_payroll_model extends CI_Model {
             $this->db->query('insert into Comment(Comment,Comment_GlvType,UserId,Date)
             values( ? , ? , ? , ? );', array($comment,$comment_GlvTypeId,$userId,$date));      
           
-               // Set Not verified status for record when add comment
-                if($commentType== PAYROLL_TYPE){
-                    $this->db->set('ReconStatusCd', 0);
-                    $this->db->where('uniqueid', $uniqueId);
-                    $this->db->update('SOM_BFA_ReconEmployeeGLV');
-                }else{
-                        $this->db->set('ReconStatusCd', 0);
-                    $this->db->where('uniqueid', $uniqueId);
-                    $this->db->update('COA_SOM_LedgerData');
-                }
             if ($this->db->trans_status() === FALSE)
             {
                 $this->db->trans_rollback();
